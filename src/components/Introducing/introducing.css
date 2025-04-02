@@ -1,0 +1,45 @@
+.presentation {
+  background-color: #f4f4f4;
+  height: 100vh;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.presentation-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.presentation-text {
+  flex: 1;
+  max-width: 50%;
+  text-align: left;
+}
+
+.presentation-image-container {
+  flex: 1;
+  max-width: 40%;
+}
+
+.presentation-image {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.presentation h2 {
+  font-size: 1.5rem;
+  font-weight: 100;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.presentation p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}

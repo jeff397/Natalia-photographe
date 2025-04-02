@@ -1,0 +1,70 @@
+.nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-left {
+  margin-right: auto;
+}
+
+.nav-right {
+  margin-left: auto;
+}
+
+h1 {
+  text-align: center;
+  flex: 1;
+  font-size: 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  position: relative; /* Nécessaire pour positionner la ligne */
+  padding-bottom: 5px; /* Espace entre le texte et la ligne */
+}
+
+.menu-link:hover {
+  color: #ff9800; /* Changer la couleur au survol */
+}
+
+.menu-link::after {
+  content: ""; /* Crée un pseudo-élément après chaque lien */
+  position: absolute;
+  bottom: 0; /* Positionne la ligne en bas du texte */
+  left: 0;
+  width: 0%; /* La ligne commence à 0% de largeur */
+  height: 2px; /* Hauteur de la ligne */
+  background-color: #ff9800; /* Couleur de la ligne */
+  transition: width 0.3s ease; /* Animation pour l'apparition de la ligne */
+}
+
+.menu-link:hover::after {
+  width: 100%; /* La ligne s'étend à 100% de la largeur du lien au survol */
+}
+
+.menu-link:focus::after,
+.menu-link:active::after {
+  width: 100%; /* La ligne reste à 100% lorsque l'élément est actif ou au focus */
+}
