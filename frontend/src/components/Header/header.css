@@ -1,0 +1,33 @@
+.header {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.my-swiper {
+  height: 100%;
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: "Arial", sans-serif;
+  font-size: 3rem;
+  text-align: center;
+  z-index: 10;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.slider-title h1 {
+  margin: 0;
+}

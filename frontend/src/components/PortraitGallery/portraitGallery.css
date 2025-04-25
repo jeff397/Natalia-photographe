@@ -1,0 +1,5 @@
+.portrait-events-layout {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}

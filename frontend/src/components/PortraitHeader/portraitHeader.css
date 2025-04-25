@@ -1,0 +1,30 @@
+.portrait-header {
+  height: 100vh;
+  background-image: url(../../assets/images/portraitHeader.webp);
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.portrait-header-content {
+  max-width: 800px;
+  margin-top: 206px;
+}
+
+.portrait-header-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.portrait-header-subtitle {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}

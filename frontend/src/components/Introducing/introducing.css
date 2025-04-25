@@ -1,0 +1,119 @@
+.presentation {
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.presentation-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.presentation-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+  text-align: left;
+}
+
+.presentation-text h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.presentation-text p {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 50px;
+}
+
+.presentation-image-container {
+  flex: 1;
+  min-width: 250px;
+  max-width: 500px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.presentation-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.presentation-image:hover {
+  transform: scale(1.02);
+}
+
+.action-icons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .presentation-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .presentation-text {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .presentation-text h2 {
+    font-size: 1.6rem;
+  }
+
+  .presentation-text p {
+    font-size: 1rem;
+  }
+
+  .action-icons {
+    top: 15px;
+    right: 15px;
+  }
+}
+
+.modern-button {
+  margin-top: 2rem;
+  padding: 14px 32px;
+  font-family: "Calligraffitti", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #000;
+  background: transparent;
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(4px);
+}
+
+.modern-button:hover {
+  background: linear-gradient(to right, #eaeaea, #f9f9f9);
+  color: #222;
+  border-color: #bbb;
+  transform: scale(1.05);
+}

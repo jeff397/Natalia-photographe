@@ -1,0 +1,83 @@
+.nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+  z-index: 20;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-left {
+  margin-right: auto;
+}
+
+.nav-right {
+  margin-left: auto;
+}
+
+h1 {
+  text-align: center;
+  flex: 1;
+  font-size: 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.menu-link:hover {
+  color: #ff9800;
+}
+
+.menu-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #ff9800;
+  transition: width 0.3s ease;
+}
+
+.menu-link:hover::after {
+  width: 100%;
+}
+
+.menu-link:focus::after,
+.menu-link:active::after {
+  width: 100%;
+}
+
+.logo {
+  font-family: "Calligraffitti", sans-serif;
+}
+
+.logo-img {
+  height: 60px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}

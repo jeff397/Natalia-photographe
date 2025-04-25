@@ -1,0 +1,30 @@
+.header-about {
+  height: 100vh;
+  background-image: url(../../assets/images/aboutBackground.webp);
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.header-about-content {
+  max-width: 800px;
+  margin-top: 206px;
+}
+
+.header-about-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.header-about-subtitle {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
