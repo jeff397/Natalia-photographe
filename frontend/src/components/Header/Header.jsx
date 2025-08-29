@@ -7,11 +7,15 @@ import Navbar from "../Navbar/Navbar";
 
 import img1 from "../../assets/images/slide1.webp";
 import img2 from "../../assets/images/slide2.webp";
-import img3 from "../../assets/images/slide3.webp";
+
+import img4 from "../../assets/images/slide4.webp";
+import img5 from "../../assets/images/slide5.webp";
+
+import img8 from "../../assets/images/slide8.webp";
 
 import "./Header.css";
 
-const images = [img1, img2, img3];
+const images = [img1, img2, img4, img5, img8];
 
 function Header() {
   return (

@@ -1,3 +1,4 @@
+/* === Base (desktop large par défaut) === */
 .login-container {
   display: flex;
   flex-direction: column;
@@ -53,4 +54,64 @@
 .error {
   color: red;
   font-size: 14px;
+}
+
+/* === Tablettes (769px – 1024px) === */
+@media screen and (max-width: 1024px) {
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-form {
+    max-width: 350px;
+    padding: 18px;
+  }
+}
+
+/* === Mobiles (481px – 768px) === */
+@media screen and (max-width: 768px) {
+  .login-container {
+    padding: 15px;
+  }
+
+  .login-form {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .input-group input {
+    padding: 8px;
+    font-size: 0.95rem;
+  }
+
+  .login-btn {
+    padding: 8px;
+    font-size: 1rem;
+  }
+}
+
+/* === Petits mobiles (jusqu’à 480px) === */
+@media screen and (max-width: 480px) {
+  .login-container {
+    padding: 10px;
+  }
+
+  .login-form {
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  .input-group input {
+    font-size: 0.9rem;
+    padding: 7px;
+  }
+
+  .login-btn {
+    font-size: 0.9rem;
+    padding: 7px;
+  }
+
+  .error {
+    font-size: 12px;
+  }
 }

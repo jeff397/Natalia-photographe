@@ -1,3 +1,4 @@
+/* Desktop large - par défaut */
 .portfolio-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -69,16 +70,6 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.portfolio-gallery-column {
-  column-count: 3;
-  column-gap: 20px;
-}
-
-.portfolio-photo-card {
-  break-inside: avoid;
-  margin-bottom: 20px;
-}
-
 .photo-modal-content {
   position: relative;
 }
@@ -97,4 +88,44 @@
 
 .close-modal-btn:hover {
   color: #ff0000;
+}
+
+/* Tablette intermédiaire (769px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .portfolio-gallery-column {
+    column-count: 2;
+    column-gap: 15px;
+  }
+
+  .portfolio-modern-button {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+
+  .portfolio-delete-icon {
+    font-size: 20px;
+    padding: 4px;
+  }
+}
+
+/* Mobile (max-width: 768px) */
+@media screen and (max-width: 768px) {
+  .portfolio-gallery-column {
+    column-count: 1;
+    column-gap: 10px;
+  }
+
+  .portfolio-modern-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .portfolio-delete-icon {
+    font-size: 18px;
+    padding: 3px;
+  }
+
+  .portfolio-photo-card {
+    margin-bottom: 15px;
+  }
 }

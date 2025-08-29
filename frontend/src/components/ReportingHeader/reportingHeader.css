@@ -1,3 +1,4 @@
+/* Desktop large - par défaut */
 .reporting-header {
   height: 100vh;
   background-image: url(../../assets/images/reportingHeader.webp);
@@ -16,15 +17,30 @@
   margin-top: 206px;
 }
 
-.reporting-header-title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #fff;
-  opacity: 0.85;
+.reporting-header-subtitle {
+  font-size: 1.1rem;
 }
 
-.reporting-header-subtitle {
-  font-size: 1.2rem;
-  line-height: 1.6;
+/* Tablette intermédiaire (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .reporting-header-content {
+    margin-top: 150px;
+    max-width: 700px;
+  }
+
+  .reporting-header-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile (moins de 768px) */
+@media screen and (max-width: 767px) {
+  .reporting-header-content {
+    margin-top: 120px;
+    max-width: 90%;
+  }
+
+  .reporting-header-subtitle {
+    font-size: 0.9rem;
+  }
 }

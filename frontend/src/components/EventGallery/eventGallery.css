@@ -1,3 +1,4 @@
+/* === Base (desktop large) === */
 .photo-events-layout {
   display: flex;
   gap: 2rem;
@@ -16,7 +17,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  margin: 0 20px;
 }
 
 .gallery-column {
@@ -31,6 +32,7 @@
   flex-direction: column;
   gap: 1rem;
   align-items: flex-end;
+  margin-bottom: 25px;
 }
 
 .photo-card {
@@ -73,4 +75,49 @@
 .button-wrapper {
   text-align: center;
   margin-bottom: 30px;
+}
+
+/* === Tablette (≤ 1024px) === */
+@media screen and (max-width: 1024px) {
+  .photo-events-layout {
+    gap: 1.5rem;
+  }
+
+  .text-column {
+    font-size: 1rem;
+    top: 80px;
+  }
+
+  .photo-card {
+    width: 80%;
+  }
+}
+
+/* === Mobile (≤ 768px) === */
+@media screen and (max-width: 768px) {
+  .photo-events-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text-column {
+    position: relative;
+    top: auto;
+    height: auto;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .gallery-column {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .photo-gallery {
+    align-items: center;
+  }
+
+  .photo-card {
+    width: 90%;
+  }
 }

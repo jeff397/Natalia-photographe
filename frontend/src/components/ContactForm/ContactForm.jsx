@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ContactModal from "../ContactModal/ContactModal";
+import backgroundImage from "../../assets/images/contactBackground.webp";
 import "./contactForm.css";
 
 function Contact() {
@@ -7,8 +8,12 @@ function Contact() {
 
   return (
     <section className="contact" id="contact">
+      {/* Image de fond */}
+      <img src={backgroundImage} alt="fond de contact" className="bg-img" />
+
+      {/* Contenu */}
       <div className="contact-content">
-        <h2 className="contact-title">Confiez moi votre histoire</h2>
+        <h1 className="contact-title">Confiez moi votre histoire</h1>
         <p className="contact-txt">
           Chaque rencontre est une histoire à raconter…
         </p>
@@ -23,6 +28,8 @@ function Contact() {
           Me contacter
         </a>
       </div>
+
+      {/* Modal */}
       {showModal && (
         <ContactModal onClose={() => setShowModal(false)}>
           <form className="contact-form">

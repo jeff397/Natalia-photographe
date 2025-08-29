@@ -10,7 +10,6 @@
   max-width: 1200px;
   margin: 0 auto;
   gap: 3rem;
-  flex-wrap: wrap;
 }
 
 .aboutme-image {
@@ -21,6 +20,7 @@
 
 .about-image {
   width: 100%;
+  height: auto;
   max-width: 400px;
   border-radius: 2rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -29,7 +29,6 @@
 
 .aboutme-text {
   flex: 1 1 400px;
-  font-family: "Helvetica Neue", sans-serif;
   color: #333;
 }
 
@@ -40,9 +39,8 @@
 }
 
 .aboutme-text p {
-  font-family: "Calligraffitti", sans-serif;
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.5;
   margin-bottom: 1.5rem;
 }
 
@@ -55,10 +53,27 @@
   margin-top: 2rem;
 }
 
-@media (max-width: 768px) {
+/* Tablette paysage (769px - 1024px) */
+@media screen and (max-width: 1024px) {
   .aboutme-content {
-    flex-direction: column-reverse;
+    gap: 2rem; /* pas besoin de column ici */
+  }
+
+  .aboutme-text h2 {
+    font-size: 2.2rem;
+  }
+
+  .about-image {
+    max-width: 350px;
+  }
+}
+
+/* Tablette portrait et mobiles larges (max 768px) */
+@media screen and (max-width: 768px) {
+  .aboutme-content {
+    flex-direction: column; /* 👈 on passe en colonne seulement ici */
     text-align: center;
+    gap: 2rem;
   }
 
   .aboutme-text h2 {
@@ -66,11 +81,30 @@
   }
 
   .aboutme-text p {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .about-image {
     max-width: 300px;
-    border-radius: 50%;
+    height: auto;
+  }
+}
+
+/* Mobile (max 480px) */
+@media screen and (max-width: 480px) {
+  .aboutme {
+    padding: 3rem 1.2rem;
+  }
+
+  .aboutme-text h2 {
+    font-size: 1.7rem;
+  }
+
+  .aboutme-text p {
+    font-size: 0.95rem;
+  }
+
+  .about-image {
+    max-width: 250px;
   }
 }

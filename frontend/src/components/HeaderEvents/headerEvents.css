@@ -1,3 +1,4 @@
+/* Desktop large - par défaut */
 .header-events {
   height: 100vh;
   background-image: url(../../assets/images/photoEventsHeader.webp);
@@ -16,15 +17,30 @@
   margin-top: 206px;
 }
 
-.header-events-title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #fff;
-  opacity: 0.85;
+.header-events-subtitle {
+  font-size: 1.1rem;
 }
 
-.header-events-subtitle {
-  font-size: 1.2rem;
-  line-height: 1.6;
+/* Tablette intermédiaire (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .header-events-content {
+    margin-top: 150px;
+    max-width: 700px;
+  }
+
+  .header-events-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile (moins de 768px) */
+@media screen and (max-width: 767px) {
+  .header-events-content {
+    margin-top: 120px;
+    max-width: 90%;
+  }
+
+  .header-events-subtitle {
+    font-size: 0.9rem;
+  }
 }
