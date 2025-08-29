@@ -96,7 +96,7 @@ const PortfolioGallery = () => {
         {isLoggedIn && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="portfolio-modern-button"
+            className="modern-button"
           >
             Ajouter une photo
           </button>
@@ -115,7 +115,7 @@ const PortfolioGallery = () => {
 
               {isLoggedIn && (
                 <div
-                  className="portfolio-delete-icon"
+                  className="delete-icon"
                   onClick={() => handleDeletePhoto(photo._id, photo.public_id)}
                 >
                   <FontAwesomeIcon icon={faTrash} size="lg" />
