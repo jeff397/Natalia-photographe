@@ -12,8 +12,9 @@ async function createUser() {
       useUnifiedTopology: true,
     });
 
-    const email = "jeffdelmotte@gmail.com";
-    const plainPassword = "Teddy80120+";
+    const email = process.env.ADMIN_EMAIL;
+    const plainPassword = process.env.ADMIN_PASSWORD;
+
     const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
     const existingUser = await User.findOne({ email });
