@@ -13,7 +13,7 @@ import img5 from "../../assets/images/slide5.webp";
 
 import img8 from "../../assets/images/slide8.webp";
 
-import "./Header.css";
+import "./header.css";
 
 const images = [img1, img2, img4, img5, img8];
 
