@@ -4,7 +4,8 @@ import { AuthContext } from "../../context/AuthContext";
 
 import "./loginform.css";
 
-const BACKEND_URL = "https://natalia-photographe.onrender.com/auth";
+// URL du backend via variable d'environnement
+const BACKEND_URL = `${import.meta.env.VITE_API_URL}/auth`;
 
 function LoginForm() {
   const { login } = useContext(AuthContext);
