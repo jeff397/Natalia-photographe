@@ -1,4 +1,5 @@
-const BACKEND_URL = "https://natalia-photographe.onrender.com/photos";
+// Récupération de l'URL du backend depuis la variable d'environnement
+const BACKEND_URL = `${import.meta.env.VITE_API_URL}/photos`;
 
 export const uploadImageToServer = async (
   file,
