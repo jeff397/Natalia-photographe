@@ -24,29 +24,24 @@ const GalleryModal = ({ onClose, onAddPhoto, forceCategory = null }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!file || !title || !description || !category) {
+    if (file && title && description && category) {
+      try {
+        const uploadedPhoto = await uploadImageToServer(
+          file,
+          title,
+          description,
+          forceCategory || category,
+          false
+        );
+        onAddPhoto(uploadedPhoto);
+        onClose();
+      } catch (error) {
+        console.error("Erreur lors de l'upload de l'image:", error);
+      }
+    } else {
       console.error(
         "Veuillez remplir tous les champs et sélectionner une image."
       );
-      return;
-    }
-
-    try {
-      // Upload sur Cloudinary et enregistrement backend
-      const uploadedPhoto = await uploadImageToServer(
-        file,
-        title,
-        description,
-        forceCategory || category
-      );
-
-      // Mettre à jour la galerie
-      onAddPhoto(uploadedPhoto.photo || uploadedPhoto);
-
-      // Fermer la modale
-      onClose();
-    } catch (error) {
-      console.error("Erreur lors de l'upload de l'image:", error);
     }
   };
 
