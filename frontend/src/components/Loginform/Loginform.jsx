@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 import "./loginform.css";
 
-// URL du backend via variable d'environnement
+// Backend pour l'authentification
 const BACKEND_URL = `${import.meta.env.VITE_API_URL}/auth`;
 
 function LoginForm() {
