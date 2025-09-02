@@ -1,7 +1,7 @@
 import backgroundImage from "../../assets/images/photoservicebackground.webp";
 import OfferCards from "../OfferCards/OfferCards";
 
-import "./PhotoService.css";
+import "./photoService.css";
 
 function PhotoService() {
   return (
