@@ -7,12 +7,16 @@ export const uploadImageToServer = async (
   description,
   category
 ) => {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("upload_preset", "portfolio_upload");
+  if (!file || !title || !description || !category) {
+    throw new Error("Tous les champs sont obligatoires pour l'upload.");
+  }
 
   try {
-    // Upload sur Cloudinary
+    // 1️⃣ Upload sur Cloudinary
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "portfolio_upload");
+
     const uploadRes = await fetch(
       "https://api.cloudinary.com/v1_1/dczxdautr/image/upload",
       { method: "POST", body: formData }
@@ -26,17 +30,23 @@ export const uploadImageToServer = async (
       );
     }
 
-    // Enregistrement dans ton backend Render
+    console.log("✅ Upload Cloudinary réussi :", uploadData.secure_url);
+
+    // 2️⃣ Enregistrement dans le backend Render
+    const payload = {
+      imageUrl: uploadData.secure_url,
+      public_id: uploadData.public_id,
+      title,
+      description,
+      category,
+    };
+
+    console.log("📤 Données envoyées au backend :", payload);
+
     const backendRes = await fetch(BACKEND_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        imageUrl: uploadData.secure_url,
-        public_id: uploadData.public_id,
-        title,
-        description,
-        category,
-      }),
+      body: JSON.stringify(payload),
     });
 
     const data = await backendRes.json();
@@ -47,9 +57,11 @@ export const uploadImageToServer = async (
       );
     }
 
+    console.log("✅ Image enregistrée sur le backend :", data);
+
     return data;
   } catch (error) {
-    console.error("Erreur lors de l'envoi de l'image:", error);
+    console.error("❌ Erreur lors de l'envoi de l'image :", error);
     throw error;
   }
 };
