@@ -1,3 +1,5 @@
+const BACKEND_URL = "https://natalia-photographe.onrender.com/photos";
+
 export const uploadImageToServer = async (
   file,
   title,
@@ -9,12 +11,10 @@ export const uploadImageToServer = async (
   formData.append("upload_preset", "portfolio_upload");
 
   try {
+    // Upload sur Cloudinary
     const uploadRes = await fetch(
       "https://api.cloudinary.com/v1_1/dczxdautr/image/upload",
-      {
-        method: "POST",
-        body: formData,
-      }
+      { method: "POST", body: formData }
     );
 
     const uploadData = await uploadRes.json();
@@ -24,7 +24,9 @@ export const uploadImageToServer = async (
         uploadData.error?.message || "Échec de l'upload vers Cloudinary"
       );
     }
-    const backendRes = await fetch("http://localhost:5000/api/photos", {
+
+    // Enregistrement dans ton backend Render
+    const backendRes = await fetch(BACKEND_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -53,26 +55,21 @@ export const uploadImageToServer = async (
 
 export const fetchPhotos = async () => {
   try {
-    const res = await fetch("http://localhost:5000/api/photos");
+    const res = await fetch(BACKEND_URL);
     const data = await res.json();
+
     if (!Array.isArray(data)) {
       throw new Error("Les données retournées ne sont pas un tableau");
     }
+
     const ids = new Set();
     const validatedData = data.filter((photo) => {
-      if (!photo._id) {
-        console.error("Photo sans _id trouvée", photo);
-        return false;
-      }
-      if (ids.has(photo._id)) {
-        console.error("Doublon d'ID trouvé pour la photo", photo);
-        return false;
-      }
+      if (!photo._id || ids.has(photo._id)) return false;
       ids.add(photo._id);
       return true;
     });
+
     if (validatedData.length === 0) {
-      console.error("Aucune photo valide trouvée");
       throw new Error("Aucune photo valide n'a été retournée");
     }
 
@@ -85,13 +82,12 @@ export const fetchPhotos = async () => {
 
 export const deleteImage = async (id, publicId) => {
   try {
-    const response = await fetch(`http://localhost:5000/api/photos/${id}`, {
+    const response = await fetch(`${BACKEND_URL}/${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ publicId }),
     });
+
     if (!response.ok) {
       throw new Error("Erreur lors de la suppression de l'image");
     }

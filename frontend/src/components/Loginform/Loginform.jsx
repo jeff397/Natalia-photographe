@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 import "./loginform.css";
+
+const BACKEND_URL = "https://natalia-photographe.onrender.com/auth";
 
 function LoginForm() {
   const { login } = useContext(AuthContext);
@@ -21,11 +22,9 @@ function LoginForm() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${BACKEND_URL}/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
@@ -39,7 +38,8 @@ function LoginForm() {
       } else {
         setMessage(data.error || "Une erreur est survenue.");
       }
-    } catch {
+    } catch (err) {
+      console.error("Erreur de connexion :", err);
       setMessage("Erreur lors de la connexion.");
     }
   };
