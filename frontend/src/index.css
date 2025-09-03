@@ -1,17 +1,17 @@
+/* index.css chargé en async */
+
+/* Reset minimal (hors body/font déjà inline) */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Lato", sans-serif;
-}
+/* Titres secondaires (non above-the-fold si nécessaire) */
 h1,
 h2 {
-  font-family: "cormorant Garamont", sans-serif;
+  font-family: "Cormorant Garamont", serif;
 }
 
+/* Paragraphes et responsive */
 p {
   font-size: 1.1rem;
 }
@@ -27,3 +27,5 @@ p {
     font-size: 0.9rem;
   }
 }
+
+/* Ajoute ici tout autre style secondaire, animations, modales, sliders… */
