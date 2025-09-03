@@ -44,8 +44,8 @@ a {
   color: #fff; /* texte blanc */
   font-size: 20px;
   font-weight: bold;
-  position: relative;
-  padding-bottom: 5px;
+  padding: 12px 16px; /* augmente la zone cliquable pour le doigt */
+  display: inline-block; /* nécessaire pour que le padding fonctionne */
 }
 
 .menu-link:hover,
