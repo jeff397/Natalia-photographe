@@ -121,3 +121,32 @@
     width: 90%;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .modal-wrapper {
+    max-width: 70%;
+    padding: 2rem;
+  }
+  .modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Pour les téléphones portables (écran < 480px) */
+@media screen and (max-width: 480px) {
+  .modal-wrapper {
+    max-width: 95%;
+    padding: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+  }
+
+  .close-modal {
+    font-size: 1.5rem;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
