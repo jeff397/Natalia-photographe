@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.8); /* plus foncé pour meilleur contraste */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,26 +29,29 @@ h1 {
   text-align: center;
   flex: 1;
   font-size: 1.5rem;
+  color: #fff; /* logo lisible */
 }
 
 a {
   text-decoration: none;
-  color: white;
+  color: #fff; /* texte blanc pour contraste élevé */
   font-weight: bold;
   transition: 0.3s;
 }
 
 .menu-link {
   text-decoration: none;
-  color: white;
+  color: #fff; /* texte blanc */
   font-size: 20px;
   font-weight: bold;
   position: relative;
   padding-bottom: 5px;
 }
 
-.menu-link:hover {
-  color: #ff9800;
+.menu-link:hover,
+.menu-link:focus,
+.menu-link:active {
+  color: #ff9800; /* accent visible */
 }
 
 .menu-link::after {
@@ -62,17 +65,15 @@ a {
   transition: width 0.3s ease;
 }
 
-.menu-link:hover::after {
-  width: 100%;
-}
-
+.menu-link:hover::after,
 .menu-link:focus::after,
 .menu-link:active::after {
   width: 100%;
 }
 
 .logo {
-  font-family: "Calligraffitti", sans-serif;
+  font-family: "Calligraffitti", cursive;
+  color: #fff; /* logo lisible */
 }
 
 .logo-img {
@@ -93,52 +94,50 @@ a {
 .burger .line {
   width: 25px;
   height: 3px;
-  background-color: white;
+  background-color: #fff; /* lignes visibles sur fond foncé */
 }
 
-/* Burger menu et menu mobile */
+/* Mobile menu */
 .mobile-menu {
   display: none;
 }
 
-/* Tablettes / écrans moyens */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .nav {
-    padding: 15px 30px; /* réduire un peu le padding */
+    padding: 15px 30px;
   }
-
   .nav-left,
   .nav-right {
-    gap: 15px; /* réduire l'espace entre les liens */
+    gap: 15px;
   }
-
   .menu-link {
-    font-size: 18px; /* réduire légèrement la taille du texte */
+    font-size: 18px;
   }
-
   h1 {
-    font-size: 1.3rem; /* réduire légèrement le logo */
+    font-size: 1.3rem;
   }
-
   .burger {
-    display: none; /* burger toujours caché */
+    display: none;
   }
 }
 
 @media screen and (max-width: 768px) {
   .nav-left,
   .nav-right {
-    display: none; /* desktop links hidden only on mobile */
+    display: none;
   }
-
   h1 {
     font-size: 1rem;
   }
-
   .mobile-menu {
     display: flex;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(
+      0,
+      0,
+      0,
+      0.95
+    ); /* plus foncé pour contraste maximal */
     position: absolute;
     top: 60px;
     right: 20px;
@@ -152,23 +151,20 @@ a {
     transition: all 0.3s ease;
     z-index: 30;
   }
-
   .mobile-menu.open {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
   }
-
   .burger {
     display: flex;
     flex-direction: column;
     cursor: pointer;
     gap: 5px;
   }
-
   .burger .line {
     width: 25px;
     height: 3px;
-    background-color: white;
+    background-color: #fff;
   }
 }
