@@ -1,6 +1,5 @@
 import React from "react";
 import "./introducing.css";
-import presentationImage from "../../assets/images/Natalia.webp";
 
 function Introducing() {
   return (
@@ -8,7 +7,7 @@ function Introducing() {
       <div className="presentation-content">
         <div className="presentation-image-container">
           <img
-            src={presentationImage}
+            src="/assets/images/Natalia.webp"
             alt="Photo de présentation"
             className="presentation-image"
           />

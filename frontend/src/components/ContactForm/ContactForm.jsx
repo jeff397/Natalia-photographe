@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ContactModal from "../ContactModal/ContactModal";
-import backgroundImage from "../../assets/images/contactBackground.webp";
+
 import "./contactForm.css";
 
 function Contact() {
@@ -9,7 +9,11 @@ function Contact() {
   return (
     <section className="contact" id="contact">
       {/* Image de fond */}
-      <img src={backgroundImage} alt="fond de contact" className="bg-img" />
+      <img
+        src="/assets/images/contactBackground.webp"
+        alt="fond de contact"
+        className="bg-img"
+      />
 
       {/* Contenu */}
       <div className="contact-content">
