@@ -3,45 +3,52 @@ import "./introducing.css";
 
 function Introducing() {
   return (
-    <section className="presentation">
+    <section className="presentation" aria-labelledby="presentation-title">
       <div className="presentation-content">
         <div className="presentation-image-container">
           <img
             src="/assets/images/Natalia.webp"
-            alt="Photo de présentation"
+            alt="Portrait de Natalia Godon-Jamiolowska, photographe freelance à Lille"
             className="presentation-image"
           />
         </div>
 
         <div className="presentation-text">
-          <h2>Natalia Godon-Jamiolowska, photographe freelance à Lille</h2>
+          <h1 id="presentation-title">
+            Natalia Godon-Jamiolowska – Photographe freelance à Lille
+          </h1>
+
           <p>
-            Bonjour ! Je m'appelle Natalia et je suis photographe. Ce mot, ce
-            métier, cette passion… je crois qu’ils me décrivent depuis toujours.
-            Mais je n’ai pas toujours osé le dire. J’ai toujours les yeux grands
-            ouverts — à la recherche de jolis reflets de lumière, d’une belle
-            composition. Mon appareil photo m’accompagne comme un fidèle ami.
-            Depuis longtemps, je photographie ma famille, mes amis, les
-            événements autour de moi… pour le plaisir, pour soutenir, pour
-            capturer. C’est dans mon ADN. Et vous savez quoi ? Aujourd’hui, j’ai
-            envie de partager cette passion du regard avec vous. De vous offrir
-            de belles sessions pour immortaliser vos proches, ou vous-mêmes —
-            pour garder en image des instants précieux. Quand je repense aux
-            souvenirs que j’ai pu créer pour d’autres, je n’ai qu’une envie :
-            vous rencontrer à votre tour !
+            Bonjour ! Je m'appelle Natalia et je suis photographe
+            professionnelle basée à Lille. Je capture des portraits, des
+            événements et des moments uniques pour vous offrir des souvenirs
+            inoubliables.
           </p>
+
+          <h2>Ma passion pour la photographie</h2>
           <p>
-            💬 Un peu plus sur moi ? Je suis polonaise, installée dans le Nord
-            depuis 8 ans. Je parle polonais, mais aussi français, anglais et
-            espagnol — et je suis passionnée par l’interculturalité. C’est avec
-            grand plaisir que je propose des séances pour un public
-            international, dans la langue qui vous met à l’aise. 🍲📚 J’aime
-            découvrir les gens et les cuisines du monde, lire, faire des
-            balades, des puzzles, et jouer à des jeux de société (en ce moment
-            je suis à fond sur Wingspan 🐦). Et bien sûr, je me déplace partout
-            à vélo dans Lille et ses environs — appareil à l’épaule, prête à
-            capter vos moments. À très bientôt pour écrire ensemble vos
-            histoires en images ❤️
+            La photographie est pour moi bien plus qu’un métier : c’est une
+            passion que je nourris depuis toujours. Mon appareil est mon fidèle
+            compagnon pour immortaliser la lumière, les émotions et les instants
+            précieux autour de moi.
+          </p>
+
+          <h2>À propos de moi</h2>
+          <p>
+            💬 Je suis polonaise et installée dans le Nord depuis 8 ans. Je
+            parle polonais, français, anglais et espagnol, et j’adore partager
+            ma passion de la photographie avec un public international. 🍲📚 En
+            dehors de mon appareil photo, j’aime découvrir les cultures, les
+            cuisines, faire des balades, des puzzles et jouer à des jeux de
+            société. Je me déplace partout à vélo dans Lille et ses environs,
+            prête à capturer vos moments les plus précieux.
+          </p>
+
+          <h3>Contactez-moi</h3>
+          <p>
+            Prêt à créer ensemble vos souvenirs en images ? N’hésitez pas à me
+            contacter pour réserver votre séance ou pour en savoir plus sur mes
+            prestations.
           </p>
         </div>
       </div>
