@@ -14,7 +14,7 @@
 .nav-left,
 .nav-right {
   display: flex;
-  padding: 0 30px;
+  padding: 0 20px;
   gap: 20px;
 }
 
@@ -104,10 +104,6 @@ a {
 
 /* Tablettes / écrans moyens */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-  .nav {
-    padding: 15px 30px; /* réduire un peu le padding */
-  }
-
   .nav-left,
   .nav-right {
     gap: 15px; /* réduire l'espace entre les liens */
@@ -118,7 +114,7 @@ a {
   }
 
   h1 {
-    font-size: 1.3rem; /* réduire légèrement le logo */
+    font-size: 1.3rem;
   }
 
   .burger {
@@ -134,6 +130,7 @@ a {
 
   h1 {
     font-size: 1rem;
+    padding-left: 20px;
   }
 
   .mobile-menu {
@@ -165,6 +162,7 @@ a {
     flex-direction: column;
     cursor: pointer;
     gap: 5px;
+    padding-right: 20px;
   }
 
   .burger .line {
