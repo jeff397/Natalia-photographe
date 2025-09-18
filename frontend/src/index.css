@@ -1,18 +1,124 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* index-DL-O_lEw.css chargé en async */
 
-body {
-  font-family: "Calligraffitti", sans-serif;
-}
+/* Reset minimal déjà inline, donc pas besoin ici */
 
+/* Titres secondaires (non critiques, hors above-the-fold) */
 h1,
 h2 {
-  font-family: "cormorant Garamont", sans-serif;
+  font-family: "Cormorant Garamont", serif;
+}
+
+/* Paragraphes et responsive */
+p {
+  font-size: 1.1rem;
+}
+
+@media screen and (max-width: 1024px) {
+  p {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Styles pour modales, sliders, boutons, animations… */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-wrapper {
+  background-color: #fff;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  color: #999;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+  color: #e74c3c;
+}
+
+.modal-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  transition: border 0.3s ease;
+}
+
+.modal-form input:focus {
+  border-color: #111;
+  outline: none;
+}
+
+.upload-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.file-upload {
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+.image-preview img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  margin-bottom: 15px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-form .modern-button {
+  display: block;
+  width: fit-content;
+  margin: 1rem auto 0 auto;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

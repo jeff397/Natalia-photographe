@@ -1,4 +1,4 @@
-import "./PortraitHeader.css";
+import "./portraitHeader.css";
 
 function PortraitHeader() {
   return (

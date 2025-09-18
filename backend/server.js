@@ -10,20 +10,30 @@ dotenv.config();
 
 const app = express();
 
+// Middleware CORS et body parser
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Test Multer pour l'upload
 app.use("/api/photos/upload", upload.single("image"), (req, res, next) => {
   console.log("Test multer");
   console.log("req.file:", req.file);
   next();
 });
 
+// --- Routes API ---
 app.use("/api/photos", photoRoutes);
 app.use("/api/auth", authRoutes);
 
+// --- Route racine pour tester le backend ---
+app.get("/", (req, res) => {
+  res.send("Backend en ligne ✅");
+});
+
 const PORT = process.env.PORT || 5000;
 
+// Connexion à MongoDB et démarrage du serveur
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,

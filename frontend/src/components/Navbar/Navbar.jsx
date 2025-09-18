@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
+import "./navbar.css";
 
 function Navbar() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <nav className="nav">
@@ -16,9 +19,8 @@ function Navbar() {
         </Link>
       </div>
 
-      <Link to="/">
+      <Link to="/" className="logo-container">
         <h1 className="logo">Natalia Godon Jamiolowska</h1>
-        <p className="logo-subtitle">Photographe</p>
       </Link>
 
       <div className="nav-right">
@@ -28,7 +30,6 @@ function Navbar() {
         <Link to="/Contact" className="menu-link">
           Contact
         </Link>
-
         {isLoggedIn ? (
           <Link to="/logout" className="menu-link">
             Logout
@@ -38,6 +39,57 @@ function Navbar() {
             Login
           </Link>
         )}
+      </div>
+
+      {/* Mobile menu */}
+      <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
+        <Link to="/" className="menu-link" onClick={() => setIsOpen(false)}>
+          Accueil
+        </Link>
+        <Link
+          to="/portfolio"
+          className="menu-link"
+          onClick={() => setIsOpen(false)}
+        >
+          Portfolio
+        </Link>
+        <Link
+          to="/About"
+          className="menu-link"
+          onClick={() => setIsOpen(false)}
+        >
+          À propos
+        </Link>
+        <Link
+          to="/Contact"
+          className="menu-link"
+          onClick={() => setIsOpen(false)}
+        >
+          Contact
+        </Link>
+        {isLoggedIn ? (
+          <Link
+            to="/logout"
+            className="menu-link"
+            onClick={() => setIsOpen(false)}
+          >
+            Logout
+          </Link>
+        ) : (
+          <Link
+            to="/login"
+            className="menu-link"
+            onClick={() => setIsOpen(false)}
+          >
+            Login
+          </Link>
+        )}
+      </div>
+
+      <div className="burger" onClick={toggleMenu}>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
       </div>
     </nav>
   );

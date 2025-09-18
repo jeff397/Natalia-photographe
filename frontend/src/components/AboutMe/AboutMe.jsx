@@ -1,4 +1,3 @@
-import AboutMeImage from "../../assets/images/aboutMeImage.webp";
 import "./aboutMe.css";
 
 function AboutMe() {
@@ -7,7 +6,7 @@ function AboutMe() {
       <div className="aboutme-content">
         <div className="aboutme-image">
           <img
-            src={AboutMeImage}
+            src="/assets/images/aboutMeImage.webp"
             alt="Photo de présentation"
             className="about-image"
           />

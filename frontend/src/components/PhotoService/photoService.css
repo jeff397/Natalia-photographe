@@ -1,3 +1,4 @@
+/* Desktop large - par défaut */
 .Photoservice {
   background-image: url("/images/photoservicebackground.webp");
   background-size: cover;
@@ -20,7 +21,7 @@
 }
 
 .Photoservice-title {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   margin-bottom: 30px;
   position: relative;
   z-index: 1;
@@ -34,13 +35,49 @@
   font-size: 1.2rem;
   max-width: 800px;
   margin: 0 auto;
-  line-height: 1.8;
+  line-height: 1.5;
   position: relative;
   z-index: 1;
   opacity: 0;
   animation: fadeInText 2s ease-out forwards;
 }
 
+/* Tablette intermédiaire (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .Photoservice {
+    padding: 60px 20px;
+  }
+
+  .Photoservice-title {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+  }
+
+  .Photoservice-txt {
+    font-size: 1rem;
+    max-width: 600px;
+  }
+}
+
+/* Mobile (moins de 768px) */
+@media screen and (max-width: 767px) {
+  .Photoservice {
+    padding: 40px 15px;
+  }
+
+  .Photoservice-title {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
+  .Photoservice-txt {
+    font-size: 0.9rem;
+    max-width: 100%;
+    line-height: 1.5;
+  }
+}
+
+/* Keyframes inchangés */
 @keyframes fadeIn {
   0% {
     opacity: 0;

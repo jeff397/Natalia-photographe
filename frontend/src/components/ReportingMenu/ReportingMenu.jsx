@@ -6,7 +6,6 @@ const ReportingMenu = () => {
   return (
     <section className="reporting-menu">
       <div className="reporting-intro">
-        <h1>Regards du monde</h1>
         <p>
           Le photo-reportage, c’est un battement de cœur capturé. C’est le chaos
           rendu beau, le quotidien élevé à l’état d’art. Là où le regard

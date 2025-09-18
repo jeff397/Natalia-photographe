@@ -1,33 +1,54 @@
 import React from "react";
 import "./introducing.css";
-import presentationImage from "../../assets/images/Natalia.webp";
 
 function Introducing() {
   return (
-    <section className="presentation">
+    <section className="presentation" aria-labelledby="presentation-title">
       <div className="presentation-content">
         <div className="presentation-image-container">
           <img
-            src={presentationImage}
-            alt="Photo de présentation"
+            src="/assets/images/Natalia.webp"
+            alt="Portrait de Natalia Godon-Jamiolowska, photographe freelance à Lille"
             className="presentation-image"
           />
         </div>
 
         <div className="presentation-text">
-          <h2>Natalia Godon-Jamiolowska, photographe freelance à Lille</h2>
+          <h1 id="presentation-title">
+            Natalia Godon-Jamiolowska – Photographe freelance à Lille
+          </h1>
+
           <p>
-            Je suis photographe autodidacte et polyvalent avec une passion pour
-            le photoreportage. Ces dernières années, j’ai eu la chance de
-            collaborer avec des personnes exceptionnelles grâce auxquelles j’ai
-            pu devenir l’homme et le photographe que je suis aujourd’hui. J’ai
-            depuis développé une vision de la photographie qui privilégie
-            l’aspect humain et l'authenticité, conscient de l’importance
-            d’encapsuler une émotion ou un instant éphémère. Ma polyvalence et
-            mon goût du challenge me permettent d’avoir un champ de compétence
-            assez large couvrant la photographie d’entreprise - corporate,
-            packshot et reportage - mais aussi un aspect plus intimiste
-            notamment pour les mariages, portraits ou sessions privées.
+            Bonjour ! Je m'appelle Natalia et je suis photographe
+            professionnelle basée à Lille. Je capture des portraits, des
+            événements et des moments uniques pour vous offrir des souvenirs
+            inoubliables.
+          </p>
+
+          <h2>Ma passion pour la photographie</h2>
+          <p>
+            La photographie est pour moi bien plus qu’un métier : c’est une
+            passion que je nourris depuis toujours. Mon appareil est mon fidèle
+            compagnon pour immortaliser la lumière, les émotions et les instants
+            précieux autour de moi.
+          </p>
+
+          <h2>À propos de moi</h2>
+          <p>
+            💬 Je suis polonaise et installée dans le Nord depuis 8 ans. Je
+            parle polonais, français, anglais et espagnol, et j’adore partager
+            ma passion de la photographie avec un public international. 🍲📚 En
+            dehors de mon appareil photo, j’aime découvrir les cultures, les
+            cuisines, faire des balades, des puzzles et jouer à des jeux de
+            société. Je me déplace partout à vélo dans Lille et ses environs,
+            prête à capturer vos moments les plus précieux.
+          </p>
+
+          <h3>Contactez-moi</h3>
+          <p>
+            Prêt à créer ensemble vos souvenirs en images ? N’hésitez pas à me
+            contacter pour réserver votre séance ou pour en savoir plus sur mes
+            prestations.
           </p>
         </div>
       </div>

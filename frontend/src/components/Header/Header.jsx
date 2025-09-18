@@ -5,13 +5,15 @@ import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
 import Navbar from "../Navbar/Navbar";
 
-import img1 from "../../assets/images/slide1.webp";
-import img2 from "../../assets/images/slide2.webp";
-import img3 from "../../assets/images/slide3.webp";
+import "./header.css";
 
-import "./Header.css";
-
-const images = [img1, img2, img3];
+const images = [
+  "/assets/images/slide1.webp",
+  "/assets/images/slide2.webp",
+  "/assets/images/slide4.webp",
+  "/assets/images/slide5.webp",
+  "/assets/images/slide8.webp",
+];
 
 function Header() {
   return (

@@ -1,3 +1,4 @@
+/* Desktop large - par défaut */
 .reporting-detail {
   padding: 2rem;
   max-width: 1200px;
@@ -88,13 +89,76 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* Tablette (769px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .reporting-detail {
+    padding: 1.5rem;
+    margin-top: 5rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .reporting-detail h1 {
+    font-size: 2rem;
+  }
+
+  .image-grid {
+    gap: 1rem;
+  }
+
+  .image-grid img {
+    height: auto;
+  }
+}
+
+/* Mobile (max-width: 768px) */
+@media screen and (max-width: 768px) {
+  .reporting-detail {
+    padding: 1rem;
+    margin-top: 6rem;
+  }
+
+  .reporting-detail h1 {
+    font-size: 1.6rem;
+  }
+
+  .image-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  .image-grid img {
+    height: auto;
+  }
+
+  .arrow {
+    font-size: 2.2rem;
+  }
+
+  .close {
+    font-size: 2.2rem;
+  }
+}
+
+/* Petit mobile (max-width: 480px) */
+@media screen and (max-width: 480px) {
+  .reporting-detail {
+    padding: 0.8rem;
+    margin-top: 6rem;
+  }
+
+  .reporting-detail h1 {
+    font-size: 1.3rem;
+  }
+
+  .image-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .arrow {
+    font-size: 1.8rem;
+  }
+
+  .close {
+    font-size: 1.8rem;
   }
 }

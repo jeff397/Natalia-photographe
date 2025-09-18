@@ -1,3 +1,4 @@
+/* Desktop large - par défaut */
 .header {
   position: relative;
   height: 100vh;
@@ -30,4 +31,42 @@
 
 .slider-title h1 {
   margin: 0;
+}
+
+/* Tablette (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .header {
+    height: 70vh; /* Réduit la hauteur pour mieux cadrer l'image */
+  }
+
+  .slider-title {
+    font-size: 2.2rem;
+    padding: 0 20px;
+  }
+
+  .slide-image {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* Mobile (moins de 768px) */
+@media screen and (max-width: 767px) {
+  .header {
+    height: 50vh; /* Hauteur plus petite pour mobile */
+  }
+
+  .slider-title {
+    font-size: 1.5rem;
+    padding: 0 15px;
+  }
+
+  .slider-title h1 {
+    line-height: 1.2;
+  }
+
+  .slide-image {
+    height: 100%;
+    object-fit: cover;
+  }
 }
