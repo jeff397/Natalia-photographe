@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { uploadImageToServer } from "../../services/api";
-import "./GalleryModal.css";
+import "./galleryModal.css";
 
 const GalleryModal = ({ onClose, onAddPhoto, forceCategory = null }) => {
   const [file, setFile] = useState(null);

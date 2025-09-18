@@ -10,6 +10,8 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
+  padding: 20px; /* pour éviter que le contenu touche les bords */
+  overflow-y: auto; /* permet le scroll si contenu trop grand */
 }
 
 .modal-wrapper {
@@ -18,6 +20,8 @@
   border-radius: 1.25rem;
   width: 100%;
   max-width: 500px;
+  max-height: 90vh; /* hauteur maximale pour écran */
+  overflow-y: auto; /* scroll vertical si besoin */
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   position: relative;
   animation: fadeIn 0.3s ease-in-out;
