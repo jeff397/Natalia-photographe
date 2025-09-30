@@ -4,10 +4,10 @@ function PortraitHeader() {
   return (
     <header className="portrait-header">
       <div className="portrait-header-content">
-        <h1 className="portrait-header-title">L'âme capturée dans un regard</h1>
+        <h1 className="portrait-header-title">Portraits & sessions privées</h1>
         <p className="portrait-header-subtitle">
-          Un portrait est une étincelle de l'âme, où chaque regard capture une
-          histoire silencieuse et intemporelle.
+          Un moment authentique, rien qu’à vous, pour célébrer vos proches… ou
+          vous-même.
         </p>
       </div>
     </header>

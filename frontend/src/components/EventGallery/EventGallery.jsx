@@ -81,16 +81,34 @@ const EventGallery = () => {
             </div>
           )}
           <p>
-            Les instants en famille sont des éclats d’éternité. Un anniversaire
-            qui éclate de rires, Un rite religieux empli de lumière, Une réunion
-            où les souvenirs se tissent entre les générations… Ces moments
-            précieux méritent d’être capturés avec tendresse. Chaque photo
-            devient un trésor, Un fragment de bonheur à transmettre, à revivre,
-            à aimer.
+            Mariage, baptême, anniversaire, EVJF… je serai honorée de vous
+            accompagner lors de ces moments uniques pour capturer rires, gestes
+            d’amour et émotions fortes. Ces instants de partage avec vos proches
+            méritent d’être préservés pour toujours. Mon approche est discrète
+            et naturelle : je m’intègre facilement, je guide un peu si
+            nécessaire, mais surtout j’observe et photographie vos moments tels
+            qu’ils se vivent. Vous pouvez aussi me confier les instants clés ou
+            les portraits que vous souhaitez absolument garder en souvenir.
           </p>
           <a href="/contact" className="modern-button">
             Confiez moi votre histoire
           </a>
+          <div className="offer-container">
+            <h1 className="offer-title">Mon offre</h1>
+            <ul className="offer-list">
+              <li>2h de présence</li>
+              <li>80 à 120 photos soigneusement éditées</li>
+              <li>Galerie privée en ligne</li>
+              <li>
+                <strong>180 euros</strong>
+              </li>
+            </ul>
+          </div>
+          <p>
+            Si vous souhaitez une couverture plus longue, la prestation peut
+            être adaptée : le budget et le nombre de clichés livrés évoluent
+            selon vos besoins.
+          </p>
         </div>
 
         <div className="gallery-column">

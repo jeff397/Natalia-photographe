@@ -20,7 +20,7 @@ function Navbar() {
       </div>
 
       <Link to="/" className="logo-container">
-        <h1 className="logo">Natalia Godon Jamiolowska</h1>
+        <h1 className="logo">Natalia Goja</h1>
       </Link>
 
       <div className="nav-right">

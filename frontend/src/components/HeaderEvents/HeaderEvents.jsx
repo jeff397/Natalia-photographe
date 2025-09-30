@@ -5,10 +5,11 @@ function HeaderEvents() {
   return (
     <header className="header-events">
       <div className="header-events-content">
-        <h1 className="header-events-title">Moments d’exception</h1>
+        <h1 className="header-events-title">
+          Célébrations familiales et amicales
+        </h1>
         <p className="header-events-subtitle">
-          Une lumière, un éclat de rire, une émotion partagée. Bienvenue dans
-          l’univers des événements marquants.
+          Des souvenirs vivants de vos rires, gestes d’amour et instants forts.
         </p>
       </div>
     </header>

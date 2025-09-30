@@ -1,4 +1,3 @@
-// Récupération de l'URL du backend depuis la variable d'environnement
 const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 export const uploadImageToServer = async (

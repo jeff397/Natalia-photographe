@@ -84,19 +84,41 @@ const PortraitGallery = () => {
             </div>
           )}
           <p>
-            Chaque portrait est une fenêtre ouverte sur une âme, un instant figé
-            dans le temps, un murmure silencieux qui raconte des histoires sans
-            mots. Dans chaque regard se cache un univers de souvenirs, de rêves
-            et de secrets, comme un écho d’émotions suspendues. Chaque ligne,
-            chaque sourire, chaque trace sur la peau est un reflet de l’histoire
-            vécue, un témoignage de moments qui s’envolent mais restent à jamais
-            capturés dans l’intemporalité de l’image. À travers le portrait,
-            nous plongeons dans l’intimité de l’être, là où se mêlent beauté et
-            vulnérabilité.
+            Il y a des personnes, des relations, des instants que l’on souhaite
+            graver, pas forcément liés à un événement précis, mais simplement
+            pour garder une trace d’un moment, d’un sentiment, d’un lien.
+            Comment ça se passe ? Nous partons en balade — près de chez vous, à
+            la maison ou dans un lieu choisi ensemble selon l’ambiance
+            recherchée. L’idée est de créer un moment privilégié où je capture
+            vos émotions avec authenticité. Je vous guide si besoin, mais c’est
+            avant tout un temps pour vous, pour célébrer vos proches… ou
+            vous-même lors d’une séance portrait individuelle. Ces sessions sont
+            idéales pour garder le souvenir d’une grossesse, d’un âge
+            particulier avant que vos enfants grandissent, ou encore d’un couple
+            amoureux — sans qu’il faille forcément attendre des fiançailles ou
+            un anniversaire pour immortaliser ces liens. Et pourquoi pas en
+            faire un cadeau ? Je vous propose des bons cadeaux imprimables : la
+            personne qui le reçoit pourra ensuite me contacter pour fixer la
+            date de la séance.
           </p>
           <a href="/contact" className="modern-button">
             Confiez moi votre histoire
           </a>
+          <div className="offer-container">
+            <h1 className="offer-title">Mon offre</h1>
+            <ul className="offer-list">
+              <li>1h30 de séance</li>
+              <li>Minimum 50 photos éditées</li>
+              <li>Galerie privée en ligne</li>
+              <li>
+                <strong>150 euros</strong>
+              </li>
+            </ul>
+          </div>
+          <p>
+            Possibilité d’adapter la durée et le nombre de photos selon vos
+            besoins.
+          </p>
         </div>
 
         <div className="gallery-column">

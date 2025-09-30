@@ -7,10 +7,18 @@ const ReportingMenu = () => {
     <section className="reporting-menu">
       <div className="reporting-intro">
         <p>
-          Le photo-reportage, c’est un battement de cœur capturé. C’est le chaos
-          rendu beau, le quotidien élevé à l’état d’art. Là où le regard
-          s’arrête, l’objectif continue. Il documente, il révèle, il raconte —
-          sans bruit, mais avec force.
+          Au-delà des sessions privées et des célébrations, je réalise des
+          reportages pour des événements, des associations, des projets
+          commerciaux, mais aussi pour raconter des histoires qui me tiennent à
+          cœur. La photographie est un langage visuel : elle permet de traduire
+          ce que les mots ne peuvent pas toujours exprimer, de nous faire
+          voyager, rencontrer des personnes et ressentir des émotions, même à
+          distance. Je vous présente ici mes reportages réalisés lors de
+          prestations, de voyages ou de projets personnels : des instants, des
+          regards, des gestes et des sentiments capturés pour vous faire vivre
+          ces moments et rencontrer ces univers. Je suis également disponible
+          pour couvrir votre événement ou raconter votre histoire à travers ce
+          langage visuel unique. N’hésitez pas à me contacter pour en discuter !
         </p>
       </div>
 

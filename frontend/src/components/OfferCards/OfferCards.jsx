@@ -5,17 +5,17 @@ import "./offerCards.css";
 function OfferCards() {
   const offers = [
     {
-      title: "Evénements familiaux",
+      title: "Célébrations familiales et amicales ",
       description: "Célébrons ce moment avec des photos inoubliables.",
       path: "/photo-events",
     },
     {
-      title: "Portraits",
+      title: "Portraits & sessions privées",
       description: "Capturons la joie et les sourires de vos proches.",
       path: "/portraits",
     },
     {
-      title: "Reportage photos",
+      title: "Reportage",
       description: "Derrière chaque cliché, une histoire vraie qui murmure.",
       path: "/reporting",
     },

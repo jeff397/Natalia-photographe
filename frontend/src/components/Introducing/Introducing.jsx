@@ -8,47 +8,29 @@ function Introducing() {
         <div className="presentation-image-container">
           <img
             src="/assets/images/Natalia.webp"
-            alt="Portrait de Natalia Godon-Jamiolowska, photographe freelance à Lille"
+            alt="Portrait de Natalia Godon-Jamiołkowska, photographe freelance à Lille"
             className="presentation-image"
           />
         </div>
 
         <div className="presentation-text">
           <h1 id="presentation-title">
-            Natalia Godon-Jamiolowska – Photographe freelance à Lille
+            Natalia Godon-Jamiołkowska – Photographe freelance à Lille
           </h1>
 
           <p>
-            Bonjour ! Je m'appelle Natalia et je suis photographe
-            professionnelle basée à Lille. Je capture des portraits, des
-            événements et des moments uniques pour vous offrir des souvenirs
-            inoubliables.
-          </p>
-
-          <h2>Ma passion pour la photographie</h2>
-          <p>
-            La photographie est pour moi bien plus qu’un métier : c’est une
-            passion que je nourris depuis toujours. Mon appareil est mon fidèle
-            compagnon pour immortaliser la lumière, les émotions et les instants
-            précieux autour de moi.
-          </p>
-
-          <h2>À propos de moi</h2>
-          <p>
-            💬 Je suis polonaise et installée dans le Nord depuis 8 ans. Je
-            parle polonais, français, anglais et espagnol, et j’adore partager
-            ma passion de la photographie avec un public international. 🍲📚 En
-            dehors de mon appareil photo, j’aime découvrir les cultures, les
-            cuisines, faire des balades, des puzzles et jouer à des jeux de
-            société. Je me déplace partout à vélo dans Lille et ses environs,
-            prête à capturer vos moments les plus précieux.
-          </p>
-
-          <h3>Contactez-moi</h3>
-          <p>
-            Prêt à créer ensemble vos souvenirs en images ? N’hésitez pas à me
-            contacter pour réserver votre séance ou pour en savoir plus sur mes
-            prestations.
+            Bonjour ! Je m'appelle Natalia, photographe professionnelle vivant à
+            Lille. Je capture vos portraits, vos événements familiaux et réalise
+            des reportages pour mettre en valeur les histoires qui vous tiennent
+            à cœur. Mon approche mêle sensibilité et spontanéité afin de
+            préserver la lumière, les émotions et l’authenticité de chaque
+            instant. Installée dans le Nord depuis 9 ans, je travaille avec des
+            particuliers comme avec des associations et des entreprises, en
+            français, polonais, anglais ou espagnol. Toujours à vélo, je me
+            déplace dans Lille et ses environs pour immortaliser vos moments les
+            plus précieux. Envie de créer ensemble vos souvenirs en images ?
+            Contactez-moi pour réserver votre séance ou discuter de votre
+            projet.
           </p>
         </div>
       </div>

@@ -1,4 +1,43 @@
-/* === Base (desktop large) === */
+.offer-container {
+  background-color: #f9f9f9; /* couleur douce, tu peux la changer */
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.offer-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.offer-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.offer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.offer-list li {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: #444;
+}
+
+.offer-list li strong {
+  font-size: 1.3rem;
+  color: #b85c5c;
+}
+
 .photo-events-layout {
   display: flex;
   gap: 2rem;
@@ -77,8 +116,13 @@
   margin-bottom: 30px;
 }
 
-/* === Tablette (≤ 1024px) === */
 @media screen and (max-width: 1024px) {
+  .offer-list {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding-left: 1.2rem;
+  }
+
   .photo-events-layout {
     gap: 1.5rem;
   }
@@ -93,8 +137,17 @@
   }
 }
 
-/* === Mobile (≤ 768px) === */
 @media screen and (max-width: 768px) {
+  .offer-list {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    padding-left: 1rem;
+  }
+
+  .offer-list li strong {
+    font-size: 1.1rem;
+  }
+
   .photo-events-layout {
     flex-direction: column;
     align-items: center;
@@ -133,8 +186,21 @@
   }
 }
 
-/* Pour les téléphones portables (écran < 480px) */
 @media screen and (max-width: 480px) {
+  .offer-list {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding-left: 0.8rem;
+  }
+
+  .offer-list li {
+    margin-bottom: 0.5rem;
+  }
+
+  .offer-list li strong {
+    font-size: 1rem;
+  }
+
   .modal-wrapper {
     max-width: 95%;
     padding: 1.5rem;

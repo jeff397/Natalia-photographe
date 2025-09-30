@@ -6,16 +6,20 @@ function PhotoService() {
     <section
       className="Photoservice"
       style={{
-        backgroundImage: `url(/assets/images/photoservicebackground.webp)`,
+        backgroundImage: `url(/assets/images/photoServiceBackground.webp)`,
       }}
     >
-      <h2 className="Photoservice-title">Vos moments précieux</h2>
+      <h2 className="Photoservice-title">
+        Les histoires écrites avec la lumière
+      </h2>
       <p className="Photoservice-txt">
-        Chaque instant mérite d’être raconté. Qu’il s’agisse d’un mariage rempli
-        d’émotions, d’un baptême tout en douceur, d’un anniversaire haut en
-        couleurs ou d’un événement familial soigné, je suis là pour capturer ces
-        moments uniques et en faire des souvenirs éternels. Mon objectif :
-        saisir l’authenticité de vos histoires, là où elles se vivent.
+        Ce qui compte pour moi, c’est de m’immerger dans le moment présent à vos
+        côtés. Plus photographe de terrain que de studio, je privilégie la
+        spontanéité aux poses figées pour transformer vos instants uniques en
+        souvenirs intemporels ou en images porteuses de sens. Mariage, baptême,
+        anniversaire, événement familial ou reportage de vos activités : chaque
+        photo devient un langage visuel qui raconte votre histoire avec
+        authenticité.
       </p>
       <OfferCards />
     </section>

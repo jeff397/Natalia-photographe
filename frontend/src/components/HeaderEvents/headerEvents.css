@@ -1,4 +1,3 @@
-/* Desktop large - par défaut */
 .header-events {
   height: 100vh;
   background-image: url(../../assets/images/photoEventsHeader.webp);
@@ -14,17 +13,18 @@
 
 .header-events-content {
   max-width: 800px;
-  margin-top: 206px;
 }
 
 .header-events-subtitle {
   font-size: 1.1rem;
 }
 
-/* Tablette intermédiaire (768px - 1024px) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+  .header-events {
+    height: 80vh;
+  }
+
   .header-events-content {
-    margin-top: 150px;
     max-width: 700px;
   }
 
@@ -33,10 +33,13 @@
   }
 }
 
-/* Mobile (moins de 768px) */
 @media screen and (max-width: 767px) {
+  .header-events {
+    height: 70vh;
+    padding: 0 15px;
+  }
+
   .header-events-content {
-    margin-top: 120px;
     max-width: 90%;
   }
 

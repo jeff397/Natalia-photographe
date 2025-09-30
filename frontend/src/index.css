@@ -1,14 +1,10 @@
-/* index-DL-O_lEw.css chargé en async */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
-/* Reset minimal déjà inline, donc pas besoin ici */
-
-/* Titres secondaires (non critiques, hors above-the-fold) */
-h1,
-h2 {
-  font-family: "Cormorant Garamont", serif;
+body,
+html {
+  font-family: "playfair-display", sans-serif;
 }
 
-/* Paragraphes et responsive */
 p {
   font-size: 1.1rem;
 }
@@ -25,7 +21,6 @@ p {
   }
 }
 
-/* Styles pour modales, sliders, boutons, animations… */
 .modal-overlay {
   position: fixed;
   top: 0;

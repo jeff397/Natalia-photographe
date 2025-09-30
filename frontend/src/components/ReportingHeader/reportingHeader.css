@@ -1,4 +1,3 @@
-/* Desktop large - par défaut */
 .reporting-header {
   height: 100vh;
   background-image: url(../../assets/images/reportingHeader.webp);
@@ -14,17 +13,18 @@
 
 .reporting-header-content {
   max-width: 800px;
-  margin-top: 206px;
 }
 
 .reporting-header-subtitle {
   font-size: 1.1rem;
 }
 
-/* Tablette intermédiaire (768px - 1024px) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+  .reporting-header {
+    height: 80vh;
+  }
+
   .reporting-header-content {
-    margin-top: 150px;
     max-width: 700px;
   }
 
@@ -33,10 +33,11 @@
   }
 }
 
-/* Mobile (moins de 768px) */
 @media screen and (max-width: 767px) {
+  .reporting-header {
+    height: 70vh;
+  }
   .reporting-header-content {
-    margin-top: 120px;
     max-width: 90%;
   }
 
