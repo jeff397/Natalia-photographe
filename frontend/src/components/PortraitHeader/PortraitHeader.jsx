@@ -2,7 +2,10 @@ import "./portraitHeader.css";
 
 function PortraitHeader() {
   return (
-    <header className="portrait-header">
+    <header
+      className="portrait-header"
+      style={{ backgroundImage: `url(/assets/images/portraitHeader.webp)` }}
+    >
       <div className="portrait-header-content">
         <h1 className="portrait-header-title">Portraits & sessions privées</h1>
         <p className="portrait-header-subtitle">
