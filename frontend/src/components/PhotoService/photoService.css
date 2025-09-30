@@ -1,6 +1,5 @@
 /* Desktop large - par défaut */
 .Photoservice {
-  background-image: url("/images/photoservicebackground.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
