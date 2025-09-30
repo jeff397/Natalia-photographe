@@ -1,5 +1,5 @@
 import OfferCards from "../OfferCards/OfferCards";
-import photoServiceBackground from "/assets/images/photoServiceBackground.webp"; // <-- importer l'image
+import photoServiceBackground from "../../../public/assets/images/photoServiceBackground.webp";
 import "./photoService.css";
 
 function PhotoService() {
@@ -7,7 +7,7 @@ function PhotoService() {
     <section
       className="Photoservice"
       style={{
-        backgroundImage: `url(${photoServiceBackground})`, // <-- utiliser l'import
+        backgroundImage: `url(${photoServiceBackground})`,
       }}
     >
       <h2 className="Photoservice-title">
