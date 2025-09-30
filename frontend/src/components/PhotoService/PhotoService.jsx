@@ -6,7 +6,7 @@ function PhotoService() {
     <section
       className="Photoservice"
       style={{
-        backgroundImage: "url(/images/photoServiceBackground.webp)",
+        backgroundImage: "url(/assets/images/photoServiceBackground.webp)",
       }}
     >
       <h2 className="Photoservice-title">
