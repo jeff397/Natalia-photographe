@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { uploadReporting } from "../../services/api"; // fonction à créer côté api.js
-import "./AddReportingModal.css";
+import "./addReportingModal.css";
 
 const AddReportingModal = ({ isOpen, onClose, onNewReporting }) => {
   const [title, setTitle] = useState("");
