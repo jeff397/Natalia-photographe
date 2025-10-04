@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
-
+import Myoffers from "./pages/MyOffers";
 import PhotoEvents from "./pages/PhotoEvents";
 import Portraits from "./pages/Portraits";
 import Reporting from "./pages/reporting";
@@ -16,6 +16,7 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import { AuthContext } from "./context/AuthContext";
+import MyOffers from "./pages/MyOffers";
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -63,7 +64,10 @@ function App() {
             <ReportingDetail reportings={reportings} isLoggedIn={isLoggedIn} />
           }
         />
-
+        <Route
+          path="/MyOffers"
+          element={<MyOffers isLoggedIn={isLoggedIn} />}
+        />
         <Route path="/Contact" element={<Contact isLoggedIn={isLoggedIn} />} />
 
         <Route

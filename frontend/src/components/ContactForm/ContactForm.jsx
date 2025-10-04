@@ -38,47 +38,51 @@ function Contact() {
         <ContactModal onClose={() => setShowModal(false)}>
           <form className="contact-form">
             <div className="form-group">
-              <label htmlFor="name">Nom</label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                placeholder="Votre nom"
+                placeholder=" "
                 required
               />
+              <label htmlFor="name">Nom</label>
             </div>
+
             <div className="form-group">
-              <label htmlFor="email">E-mail</label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Votre e-mail"
+                placeholder=" "
                 required
               />
+              <label htmlFor="email">E-mail</label>
             </div>
+
             <div className="form-group">
-              <label htmlFor="subject">Objet</label>
               <input
                 type="text"
                 id="subject"
                 name="subject"
-                placeholder="Ex. Mariage, portrait..."
+                placeholder=" "
                 required
               />
+              <label htmlFor="subject">Objet</label>
             </div>
+
             <div className="form-group">
-              <label htmlFor="message">Message</label>
               <textarea
                 id="message"
                 name="message"
+                placeholder=" "
                 rows="5"
-                placeholder="Votre message..."
                 required
               ></textarea>
+              <label htmlFor="message">Message</label>
             </div>
+
             <button type="submit" className="modern-button">
-              Envoyer le message
+              Envoyer
             </button>
           </form>
         </ContactModal>

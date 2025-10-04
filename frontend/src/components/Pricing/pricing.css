@@ -1,0 +1,111 @@
+/* pricing.css */
+.pricing-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 50px;
+  margin-top: 80px;
+}
+
+.card {
+  width: 280px;
+  height: 380px;
+  perspective: 1000px;
+  cursor: pointer;
+  margin: 0 20px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  border-radius: 15px;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.card-front {
+  background: #fff;
+  color: #333;
+  text-align: center;
+}
+
+.card-front h2 {
+  font-size: 16px;
+}
+
+.card-front .card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* espace entre image, contenu et bouton */
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.card-back p {
+  margin-bottom: 50px;
+}
+
+.card-back .card-content {
+  flex-grow: 1; /* prend tout l’espace disponible sous l’image */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centre le texte dans l’espace restant */
+  align-items: center;
+  text-align: center;
+}
+
+.card-back .price {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.card-back .btn {
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #2575fc;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card-back .btn:hover {
+  background-color: #f0f0f0;
+}
