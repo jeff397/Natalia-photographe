@@ -1,0 +1,188 @@
+.reporting-editor {
+  margin: 4rem auto;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex: 1; /* prend tout l'espace restant */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Titres et admin controls */
+.reporting-editor h1 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.reporting-editor p {
+  white-space: pre-wrap; /* conserve les retours à la ligne */
+  word-wrap: break-word; /* évite les débordements */
+  line-height: 1.6; /* espace entre les lignes pour plus de lisibilité */
+  margin-bottom: 1rem; /* espace entre les paragraphes */
+  font-size: 1rem; /* taille harmonieuse */
+  text-align: justify; /* optionnel : texte aligné sur les deux côtés */
+  width: 80%;
+  margin: 0 auto;
+  font-size: small;
+}
+
+.admin-controls {
+  margin-bottom: 2rem;
+}
+
+.admin-controls textarea {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.admin-controls button {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  transition: background-color 0.2s;
+}
+
+.admin-controls button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.admin-controls button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.reporting-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(353px, 1fr));
+  grid-auto-rows: 376px; /* hauteur par défaut des cases */
+  gap: 17px;
+  margin-top: 50px;
+  position: relative;
+}
+
+.reporting-photos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* remplissage de la case en coupant si nécessaire */
+
+  transition: transform 0.3s;
+}
+
+/* effet hover pour un peu de dynamisme */
+.reporting-photos img:hover {
+  transform: scale(1.05);
+}
+/* Conteneur de chaque photo */
+.photo-wrapper {
+  position: relative; /* Nécessaire pour que les éléments enfants positionnés de manière absolue soient alignés par rapport à ce conteneur */
+}
+
+/* Icône de suppression */
+.delete-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: red;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10; /* S'assure que l'icône est au-dessus de l'image */
+}
+
+.delete-icon:hover {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.photo-wrapper {
+  position: relative; /* Ajouté pour le positionnement absolu de l'icône */
+}
+
+.reporting-photos .delete-icon {
+  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: red;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reporting-photos .delete-icon:hover {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 1.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.lightbox-wrapper {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain !important;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1001;
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+.lightbox-next {
+  right: 20px;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  color: #ddd;
+}

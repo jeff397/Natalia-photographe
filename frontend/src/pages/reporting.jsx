@@ -1,13 +1,13 @@
 import ReportingHeader from "../components/ReportingHeader/ReportingHeader";
 import ReportingMenu from "../components/ReportingMenu/ReportingMenu";
 
-function Reporting() {
+const Reporting = ({ isLoggedIn }) => {
   return (
     <>
       <ReportingHeader />
-      <ReportingMenu />
+      <ReportingMenu isLoggedIn={isLoggedIn} />;
     </>
   );
-}
+};
 
 export default Reporting;

@@ -1,8 +1,8 @@
-.footer {
-  background: #111;
+footer {
+  margin-top: auto; /* reste en bas si contenu court */
+  padding: 1rem;
+  background-color: #222;
   color: #fff;
-  padding: 15px 20px; /* très compact */
-  font-family: Arial, sans-serif;
   text-align: center;
 }
 

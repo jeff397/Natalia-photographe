@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import photoRoutes from "./routes/photoRoutes.js";
 import authRoutes from "./routes/auth.js";
+import reportingRoutes from "./routes/reportingRoutes.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use("/api/photos/upload", upload.single("image"), (req, res, next) => {
 // --- Routes API ---
 app.use("/api/photos", photoRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/reportings", reportingRoutes);
 
 // --- Route racine pour tester le backend ---
 app.get("/", (req, res) => {

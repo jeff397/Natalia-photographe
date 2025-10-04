@@ -20,13 +20,18 @@ function Mywork({ isLoggedIn }) {
       try {
         console.log("Chargement des photos depuis l'API...");
         const data = await fetchPhotos();
+
         const excludedCategories = [
           "photo-events",
           "photo-portrait",
           "portfolio",
         ];
+
+        // Filtrer en excluant aussi toutes les catégories qui commencent par "reportage-"
         const filteredPhotos = data.filter(
-          (photo) => !excludedCategories.includes(photo.category.toLowerCase())
+          (photo) =>
+            !excludedCategories.includes(photo.category.toLowerCase()) &&
+            !photo.category.toLowerCase().startsWith("reportage-")
         );
 
         const sorted = filteredPhotos.sort(

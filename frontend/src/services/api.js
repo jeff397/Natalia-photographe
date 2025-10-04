@@ -1,5 +1,7 @@
 const BACKEND_URL = import.meta.env.VITE_API_URL;
 
+export { uploadImageToServer as uploadImage };
+
 export const uploadImageToServer = async (
   file,
   title,
@@ -11,7 +13,6 @@ export const uploadImageToServer = async (
   }
 
   try {
-    // 1️⃣ Upload sur Cloudinary
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "portfolio_upload");
@@ -29,7 +30,6 @@ export const uploadImageToServer = async (
       );
     }
 
-    // 2️⃣ Enregistrement dans le backend
     const payload = {
       imageUrl: uploadData.secure_url,
       public_id: uploadData.public_id,
@@ -100,4 +100,82 @@ export const deleteImage = async (id, publicId) => {
     console.error("Erreur dans deleteImage:", error);
     throw error;
   }
+};
+
+export const fetchReportings = async () => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/reportings`);
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch (err) {
+    console.error("Erreur lors du chargement des reportages :", err);
+    return [];
+  }
+};
+
+// services/api.js
+
+// Fonction pour créer un nouveau reportage
+export const uploadReporting = async (file, title, subtitle) => {
+  try {
+    // Étape 1 → upload sur Cloudinary
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "portfolio_upload");
+
+    const uploadRes = await fetch(
+      "https://api.cloudinary.com/v1_1/dczxdautr/image/upload",
+      { method: "POST", body: formData }
+    );
+
+    const uploadData = await uploadRes.json();
+
+    if (!uploadRes.ok || !uploadData.secure_url) {
+      throw new Error("Échec de l'upload Cloudinary");
+    }
+
+    // Étape 2 → envoi des infos au backend
+    const payload = {
+      title,
+      subtitle,
+      cover: uploadData.secure_url, // ⚡️ URL Cloudinary
+      public_id: uploadData.public_id,
+    };
+
+    const backendRes = await fetch(`${BACKEND_URL}/reportings`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!backendRes.ok) {
+      throw new Error("Erreur enregistrement reportage côté serveur");
+    }
+
+    return await backendRes.json();
+  } catch (err) {
+    console.error("Erreur uploadReporting:", err);
+    throw err;
+  }
+};
+
+export const deleteReporting = async (id) => {
+  const res = await fetch(`${BACKEND_URL}/reportings/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) throw new Error("Erreur lors de la suppression du reportage");
+  return res.json();
+};
+
+// api.js (ajout à la fin ou avec les autres exports)
+
+export const updateReporting = async (id, data) => {
+  const res = await fetch(`${BACKEND_URL}/reportings/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  const updatedData = await res.json();
+  if (!res.ok) throw new Error(updatedData.message || "Erreur mise à jour");
+  return updatedData;
 };

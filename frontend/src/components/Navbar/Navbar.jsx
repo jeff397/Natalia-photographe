@@ -24,8 +24,8 @@ function Navbar() {
       </Link>
 
       <div className="nav-right">
-        <Link to="/About" className="menu-link">
-          À propos
+        <Link to="/MyOffers" className="menu-link">
+          Tarifs
         </Link>
         <Link to="/Contact" className="menu-link">
           Contact

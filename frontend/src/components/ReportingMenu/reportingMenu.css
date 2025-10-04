@@ -1,102 +1,84 @@
-/* === Base (desktop) === */
-.reporting-menu {
-  padding: 2rem;
+.reporting-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 20px;
+}
+
+.reporting-intro {
+  margin-bottom: 3rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+.reporting-intro p {
+  margin-bottom: 1rem;
 }
 
 .reporting-card {
   position: relative;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-decoration: none;
-  height: 350px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
 }
 
 .reporting-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
-.reporting-card img {
+.reporting-card-image {
   width: 100%;
-  height: 100%;
+  height: 180px;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  background-size: cover;
+  background-position: center;
 }
 
-.reporting-card .title-overlay {
+.reporting-card-content {
+  padding: 0.8rem 1rem;
+  background: #fff; /* contraste clair */
+}
+
+.reporting-card-content h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: #222;
+  text-align: center;
+}
+
+.reporting-card-content .subtitle {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.reporting-card .delete-icon {
   position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  text-align: center;
-  padding: 1rem;
+  display: flex;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: red;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.reporting-card .title-overlay h2 {
-  font-size: 1.1rem;
-}
-
-.reporting-card:hover img {
-  transform: scale(1.05);
-}
-
-.reporting-intro {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 3rem;
-  padding: 0 1rem;
-}
-
-.reporting-list {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* === Tablette paysage (≤ 1024px) === */
-@media screen and (max-width: 1024px) {
-  .reporting-list {
-    gap: 1.5rem;
-  }
-
-  .reporting-card {
-    height: 300px;
-  }
-
-  .reporting-card .title-overlay h2 {
-    font-size: 1rem;
-  }
-}
-
-/* === Tablette portrait / mobiles larges (≤ 768px) === */
-@media screen and (max-width: 768px) {
-  .reporting-list {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-
-  .reporting-card {
-    height: 250px;
-  }
-
-  .reporting-card .title-overlay h2 {
-    font-size: 0.9rem;
-  }
-}
-
-/* === Mobile (≤ 480px) === */
-@media screen and (max-width: 480px) {
-  .reporting-list {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .reporting-card {
-    height: 200px;
-  }
+.reporting-card .delete-icon:hover {
+  background-color: rgba(255, 0, 0, 0.2);
 }
