@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AddPhotoModal from "../AddPhotoModal/AddPhotoModal";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -28,6 +29,7 @@ const ReportingEditor = ({
   const [loading, setLoading] = useState(true);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const [confirmDeleteData, setConfirmDeleteData] = useState(null);
 
   const openLightbox = (index) => {
     setCurrentPhotoIndex(index);
@@ -109,20 +111,22 @@ const ReportingEditor = ({
     }
   };
 
-  const handleDeleteClick = async (photoId, publicId) => {
-    const confirmDelete = window.confirm(
-      "Voulez-vous vraiment supprimer cette photo ?"
-    );
-    if (!confirmDelete) return;
+  const handleDeleteClick = (photoId, publicId) => {
+    setConfirmDeleteData({ photoId, publicId });
+  };
 
+  const confirmDelete = async () => {
+    if (!confirmDeleteData) return;
     try {
-      await deleteImage(photoId, publicId); // <-- utilise la fonction de l'API
-
-      // Mise à jour de l'état local
-      setPhotos((prev) => prev.filter((p) => p._id !== photoId));
+      await deleteImage(confirmDeleteData.photoId, confirmDeleteData.publicId);
+      setPhotos((prev) =>
+        prev.filter((p) => p._id !== confirmDeleteData.photoId)
+      );
     } catch (err) {
       console.error("Erreur suppression photo :", err);
       alert("Impossible de supprimer la photo");
+    } finally {
+      setConfirmDeleteData(null);
     }
   };
 
@@ -248,6 +252,12 @@ const ReportingEditor = ({
           )}
         </div>
       )}
+      <ConfirmModal
+        isOpen={!!confirmDeleteData} // <-- c’est ici
+        message="Voulez-vous vraiment supprimer cette photo ?"
+        onConfirm={confirmDelete}
+        onCancel={() => setConfirmDeleteData(null)}
+      />
     </div>
   );
 };
