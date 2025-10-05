@@ -52,7 +52,6 @@
   width: 100%;
   max-width: 400px;
   height: auto;
-  aspect-ratio: 400/530;
   border-radius: 50%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   object-fit: cover;
@@ -114,7 +113,9 @@
   }
 
   .presentation-image {
-    max-width: 300px;
+    width: 80%; /* ✅ occupe 80% du conteneur pour garder de l’espace */
+    max-width: 280px; /* ✅ limite la taille sur les petits écrans */
+    height: auto;
   }
 
   .action-icons {
@@ -144,4 +145,11 @@
   color: #222;
   border-color: #bbb;
   transform: scale(1.05);
+}
+
+@media screen and (max-width: 400px) {
+  .presentation-image {
+    width: 90%;
+    max-width: 250px;
+  }
 }
