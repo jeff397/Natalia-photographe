@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import "./navbar.css";
 
 function Navbar() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const { isLoggedIn, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -31,9 +32,9 @@ function Navbar() {
           Contact
         </Link>
         {isLoggedIn ? (
-          <Link to="/logout" className="menu-link">
+          <span className="menu-link" onClick={logout}>
             Logout
-          </Link>
+          </span>
         ) : (
           <Link to="/login" className="menu-link">
             Login
@@ -68,13 +69,15 @@ function Navbar() {
           Contact
         </Link>
         {isLoggedIn ? (
-          <Link
-            to="/logout"
+          <span
             className="menu-link"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              logout();
+              setIsOpen(false);
+            }}
           >
             Logout
-          </Link>
+          </span>
         ) : (
           <Link
             to="/login"
