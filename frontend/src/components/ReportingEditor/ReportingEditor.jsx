@@ -161,9 +161,6 @@ const ReportingEditor = ({
   return (
     <div className="reporting-editor">
       <h1>{title}</h1>
-      {reporting?.subtitle && (
-        <h2 className="reporting-subtitle">{reporting.subtitle}</h2>
-      )}
 
       {isLoggedIn && (
         <div className="admin-controls">
