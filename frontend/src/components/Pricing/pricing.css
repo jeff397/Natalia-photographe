@@ -168,16 +168,22 @@
 }
 
 /* --- Mobiles (jusqu’à 480px) --- */
+/* --- Mobiles (jusqu’à 480px) --- */
 @media screen and (max-width: 480px) {
   .pricing-container {
-    padding: 20px 10px;
-    gap: 30px;
+    padding: 15px; /* ✅ réduit les marges globales */
+    gap: 25px;
     margin-top: 50px;
+    overflow-x: hidden; /* ✅ empêche tout scroll horizontal */
+    width: 86%;
   }
 
   .card {
     width: 100%;
-    height: 360px; /* ✅ fixe pour éviter l’écrasement */
+    max-width: 340px;
+    height: 360px;
+    margin: 0 auto;
+    box-sizing: border-box; /* ✅ prend bien les marges et paddings en compte */
   }
 
   .card-inner {
@@ -189,27 +195,48 @@
   }
 
   .card-back {
-    padding: 1rem;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
 
-  .card-back .card-content p {
-    font-size: 0.95rem;
+  .card-back p {
+    margin-bottom: 15px;
+    font-size: 14px;
     line-height: 1.4;
   }
 
   .card-back .price {
-    margin-top: 1rem;
+    margin-top: 10px;
     font-size: 1rem;
+    font-weight: bold;
   }
 
   .card-back .btn {
     margin-top: 1rem;
+    padding: 8px 14px;
+  }
+}
+
+/* --- Très petits écrans (jusqu’à 360px) --- */
+@media screen and (max-width: 360px) {
+  .pricing-container {
+    padding: 10px;
+  }
+
+  .card {
+    max-width: 310px;
+    height: auto; /* ✅ permet de respirer sur mini-écrans */
+  }
+
+  .card-back {
+    padding: 1rem;
   }
 
   .card-back p {
-    margin-bottom: 20px;
-    font-size: 14px;
+    font-size: 13px;
   }
 }
