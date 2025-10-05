@@ -55,11 +55,11 @@ function Navbar() {
           Portfolio
         </Link>
         <Link
-          to="/About"
+          to="/Myoffers"
           className="menu-link"
           onClick={() => setIsOpen(false)}
         >
-          À propos
+          Tarifs
         </Link>
         <Link
           to="/Contact"

@@ -189,20 +189,27 @@
   }
 
   .card-back {
-    padding: 15px;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-back .card-content p {
+    font-size: 0.95rem;
+    line-height: 1.4;
   }
 
   .card-back .price {
-    font-size: 18px;
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  .card-back .btn {
+    margin-top: 1rem;
   }
 
   .card-back p {
     margin-bottom: 20px;
     font-size: 14px;
-  }
-
-  .card-back .btn {
-    font-size: 14px;
-    padding: 8px 14px;
   }
 }

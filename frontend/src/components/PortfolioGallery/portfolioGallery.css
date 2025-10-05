@@ -5,6 +5,7 @@
   margin-top: 100px;
   padding: 20px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .portfolio-gallery-column {
@@ -176,7 +177,7 @@
 @media screen and (max-width: 768px) {
   .portfolio-gallery-column {
     column-count: 1;
-    column-gap: 10px;
+    column-gap: 40px;
   }
 
   .portfolio-modern-button {
@@ -191,6 +192,12 @@
 
   .portfolio-photo-card {
     margin-bottom: 15px;
+  }
+
+  .portfolio-photo-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .large-photo {

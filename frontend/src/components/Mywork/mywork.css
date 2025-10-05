@@ -158,8 +158,8 @@
 /* Petit mobile (max-width: 480px) */
 @media screen and (max-width: 480px) {
   .gallery-items {
-    grid-template-columns: 1fr; /* 1 colonne */
-    gap: 10px;
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .gallery-title {

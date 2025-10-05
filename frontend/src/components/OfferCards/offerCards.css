@@ -4,10 +4,10 @@
   gap: 30px;
 }
 
+/* Cartes */
 .offer-card {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
-  flex: 1 1 300px;
   max-width: 375px;
   min-height: 250px;
   padding: 20px;
@@ -17,6 +17,7 @@
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .offer-card:hover {
@@ -47,23 +48,42 @@
   display: inline-block;
 }
 
+/* --- TABLETTES --- */
 @media screen and (max-width: 1024px) {
   .cards-container {
     gap: 20px;
   }
+
   .offer-card {
     min-height: 230px;
   }
 }
 
+/* --- MOBILE --- */
 @media screen and (max-width: 767px) {
   .cards-container {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr; /* une seule colonne */
+    gap: 16px;
+    padding: 0 10px;
   }
+
   .offer-card {
     width: 100%;
-    max-width: 420px;
+    max-width: 100%; /* pleine largeur */
     min-height: auto;
+    padding: 16px;
+  }
+
+  .offer-card-header h3 {
+    font-size: 1.25rem;
+  }
+
+  .offer-card-description {
+    font-size: 0.95rem;
+  }
+
+  .modern-button {
+    font-size: 0.95rem;
+    padding: 8px 14px;
   }
 }
