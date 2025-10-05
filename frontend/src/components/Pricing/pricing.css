@@ -220,23 +220,3 @@
     padding: 8px 14px;
   }
 }
-
-/* --- Très petits écrans (jusqu’à 360px) --- */
-@media screen and (max-width: 360px) {
-  .pricing-container {
-    padding: 10px;
-  }
-
-  .card {
-    max-width: 310px;
-    height: auto; /* ✅ permet de respirer sur mini-écrans */
-  }
-
-  .card-back {
-    padding: 1rem;
-  }
-
-  .card-back p {
-    font-size: 13px;
-  }
-}
