@@ -164,3 +164,113 @@
 .lightbox-next:hover {
   color: #ddd;
 }
+
+@media (max-width: 1024px) {
+  .reporting-editor {
+    margin: 3rem auto;
+    padding: 1rem 1.5rem;
+  }
+
+  .reporting-editor h1 {
+    font-size: 1.2rem;
+  }
+
+  .reporting-editor p {
+    width: 90%;
+    font-size: 0.9rem;
+  }
+
+  .photo-wrapper {
+    width: 240px;
+    height: 160px;
+  }
+}
+
+/* ✅ Mobiles (max-width: 767px) */
+@media (max-width: 767px) {
+  .reporting-editor {
+    margin: 2.5rem auto;
+    padding: 1rem;
+    border-radius: 8px;
+    justify-content: center;
+  }
+
+  .reporting-editor h1 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .reporting-editor p {
+    width: 95%;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .reporting-photos {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .photo-wrapper {
+    width: 100%;
+    max-width: 330px;
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 2.5rem;
+  }
+}
+
+/* ✅ Très petits écrans (max-width: 480px) */
+@media (max-width: 480px) {
+  .reporting-editor {
+    padding: 0.8rem;
+    margin: 2rem auto;
+  }
+
+  .reporting-editor h1 {
+    font-size: 1rem;
+  }
+
+  .reporting-editor p {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  .photo-wrapper {
+    width: 90%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 2rem;
+    left: 10px;
+    right: 10px;
+  }
+}
+
+/* ✅ Ultra petits écrans (moins de 360px) */
+@media (max-width: 360px) {
+  .reporting-editor {
+    margin: 1.5rem auto;
+  }
+
+  .reporting-editor p {
+    font-size: 0.75rem;
+  }
+
+  .photo-wrapper {
+    width: 95%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.8rem;
+  }
+}
