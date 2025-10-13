@@ -2,7 +2,6 @@
 .presentation {
   background-color: #f4f4f4;
   min-height: 100vh;
-  padding: 60px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +17,7 @@
 }
 
 .presentation-text {
-  flex: 1;
+  margin: auto 0;
   min-width: 300px;
   max-width: 600px;
   text-align: left;
@@ -52,7 +51,6 @@
   width: 100%;
   max-width: 400px;
   height: auto;
-  border-radius: 50%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   object-fit: cover;
   transition: transform 0.3s ease;

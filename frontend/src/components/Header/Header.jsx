@@ -19,7 +19,7 @@ function Header() {
   return (
     <header className="header">
       <div className="slider-title">
-        <h1>"Laissez-vous emporter par l'art de la photographie"</h1>
+        <h1>"Regarder avec le coeur, capter avec la lumière"</h1>
       </div>
 
       <Swiper
