@@ -13,15 +13,38 @@
   overflow: hidden;
 }
 
-/* Image de fond */
+/* Image de fond responsive */
+/* Image de fond responsive */
 .contact .bg-img {
-  position: absolute;
+  position: absolute; /* derrière le contenu */
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%; /* prend toute la hauteur */
-  object-fit: cover; /* ou contain si tu veux */
+  width: 100%; /* toujours pleine largeur */
+  height: 100%; /* toujours pleine hauteur */
+  object-fit: cover; /* couvre toute la zone sans déformation */
+  object-position: center; /* centre l'image */
+  filter: brightness(60%) contrast(100%);
   z-index: 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .contact .bg-img {
+    object-position: right;
+  }
+}
+
+/* Mobile - ajuste si l'écran est petit */
+@media screen and (max-width: 768px) {
+  .contact .bg-img {
+    object-position: right; /* garde le focus en haut */
+  }
+}
+
+/* Très petits écrans */
+@media screen and (max-width: 480px) {
+  .contact .bg-img {
+    object-position: right;
+  }
 }
 
 /* Contenu au-dessus */
@@ -155,6 +178,13 @@
   box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
 }
 
+.contact-content .modern-button {
+  color: #fff;
+}
+
+.contact-content .modern-button:hover {
+  color: black;
+}
 /* Responsive */
 @media screen and (max-width: 768px) {
   .contact-form {
