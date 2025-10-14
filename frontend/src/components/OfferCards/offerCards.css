@@ -8,7 +8,7 @@
 }
 
 .offer-card {
-  background-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -32,6 +32,18 @@
 
 .offer-cards-title {
   margin: 80px;
+}
+
+.amp {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3em;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
+    1px 1px 0 black;
+  font-style: italic;
+  letter-spacing: -1px;
+  display: inline-block;
+  transform: rotate(-2deg);
 }
 
 .offer-card-header h3 {

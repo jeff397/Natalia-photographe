@@ -5,15 +5,26 @@ import "./offerCards.css";
 function OfferCards() {
   const offers = [
     {
-      title: "Célébrations familiales et amicales ",
+      title: (
+        <>
+          Célébrations familiales
+          <br />
+          <span className="amp">&</span> amicales
+        </>
+      ),
+
       path: "/photo-events",
     },
     {
-      title: "Portraits & sessions privées",
+      title: (
+        <>
+          Portraits <span className="amp">&</span> sessions privées
+        </>
+      ),
       path: "/portraits",
     },
     {
-      title: "Reportage",
+      title: "Reportages",
       path: "/reporting",
     },
   ];
