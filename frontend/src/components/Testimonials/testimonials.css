@@ -1,0 +1,51 @@
+.testimonials {
+  max-width: 700px;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.testimonials-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.testimonials-txt {
+  color: #444;
+  margin-bottom: 2rem;
+}
+
+.testimonial-card {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  box-shadow: none;
+}
+
+.testimonial-text {
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.testimonial-author {
+  font-weight: bold;
+  color: #000;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: #ff4444;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.delete-icon:hover {
+  transform: scale(1.1);
+  color: #e03e3e;
+}
