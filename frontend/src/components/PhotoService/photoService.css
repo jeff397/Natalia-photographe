@@ -14,8 +14,12 @@
 .Photoservice::before {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.75);
   z-index: 0;
+}
+.Photoservice-title,
+.Photoservice-txt {
+  color: #fff; /* blanc pur */
 }
 
 .Photoservice-title {
@@ -40,7 +44,7 @@
   animation: fadeInText 2s ease-out forwards;
 
   /* Fond blanc léger, sans flou */
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.8);
   color: #000;
   padding: 20px 25px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
