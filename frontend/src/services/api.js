@@ -179,3 +179,21 @@ export const updateReporting = async (id, data) => {
   if (!res.ok) throw new Error(updatedData.message || "Erreur mise à jour");
   return updatedData;
 };
+
+export const fetchTestimonials = async () => {
+  const res = await fetch(`${BACKEND_URL}/testimonials`);
+  return res.json();
+};
+
+export const addTestimonial = async (author, quote) => {
+  const res = await fetch(`${BACKEND_URL}/testimonials`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ author, quote }),
+  });
+  return res.json();
+};
+
+export const deleteTestimonial = async (id) => {
+  return fetch(`${BACKEND_URL}/testimonials/${id}`, { method: "DELETE" });
+};
