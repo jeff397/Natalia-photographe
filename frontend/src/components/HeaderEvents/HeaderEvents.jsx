@@ -6,7 +6,7 @@ function HeaderEvents() {
     <header className="header-events">
       <div className="header-events-content">
         <h1 className="header-events-title">
-          Célébrations familiales et amicales
+          Célébrations familiales <span className="amp">&</span> amicales
         </h1>
         <p className="header-events-subtitle">
           Des souvenirs vivants de vos rires, gestes d’amour et instants forts.

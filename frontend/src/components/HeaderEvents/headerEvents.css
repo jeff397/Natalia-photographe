@@ -13,6 +13,9 @@
 
 .header-events-content {
   max-width: 800px;
+  background: rgba(255, 255, 255, 0.8);
+  color: black;
+  padding: 0 15px;
 }
 
 .header-events-subtitle {
