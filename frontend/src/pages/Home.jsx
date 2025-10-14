@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Introducing from "../components/Introducing/Introducing";
-import Mywork from "../components/Mywork/Mywork";
+import Testimonials from "../components/Testimonials/Testimonials";
 import PhotoService from "../components/PhotoService/PhotoService";
 
 import { AuthContext } from "../context/AuthContext";
@@ -16,7 +16,7 @@ function Home() {
       {isLoggedIn && <h1>Mode Admin activé</h1>}
       <Introducing />
       <PhotoService isLoggedIn={isLoggedIn} />
-      <Mywork isLoggedIn={isLoggedIn} />
+      <Testimonials isLoggedIn={isLoggedIn} />
     </div>
   );
 }
