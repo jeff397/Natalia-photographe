@@ -1,7 +1,7 @@
 /* Desktop large - par défaut */
 .presentation {
   background-color: #f4f4f4;
-  min-height: 100vh;
+  padding: 80px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +34,7 @@
   font-size: 1rem;
   color: #444;
   line-height: 1.5;
-  margin-bottom: 10px;
+  padding: 0 30px;
 }
 
 .presentation-image-container {

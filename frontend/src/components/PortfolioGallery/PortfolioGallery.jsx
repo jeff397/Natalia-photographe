@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { fetchPhotos, deleteImage } from "../../services/api";
 import GalleryModal from "../GalleryModal/GalleryModal";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./portfolioGallery.css";
 
 const PortfolioGallery = () => {
   const { isLoggedIn } = useContext(AuthContext);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photos, setPhotos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
+  // Charger les photos de la catégorie "portfolio"
   useEffect(() => {
     const loadPhotos = async () => {
       try {
@@ -25,70 +22,56 @@ const PortfolioGallery = () => {
         const eventPhotos = allPhotos.filter(
           (photo) => photo.category === "portfolio"
         );
-
         const sortedPhotos = eventPhotos.sort(
-          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-
         setPhotos(sortedPhotos);
       } catch (error) {
         console.error("Erreur lors du chargement des photos:", error);
       }
     };
-
     loadPhotos();
   }, [refreshKey]);
 
+  // Rafraîchir après ajout
   const handleAddPhoto = () => {
     setRefreshKey((prevKey) => prevKey + 1);
     setIsModalOpen(false);
   };
 
+  // Supprimer une photo
   const handleDeletePhoto = async (id, publicId) => {
+    if (!window.confirm("Supprimer cette photo ?")) return;
     try {
-      if (!publicId) {
-        console.error("Le publicId est manquant !");
-        return;
-      }
-
       const response = await deleteImage(id, publicId);
-
       if (response.status === 200) {
-        setPhotos((prevPhotos) =>
-          prevPhotos.filter((photo) => photo._id !== id)
-        );
+        setPhotos((prev) => prev.filter((p) => p._id !== id));
       } else {
-        console.error("Erreur lors de la suppression :", response);
-        alert("Erreur lors de la suppression de l'image.");
+        alert("Erreur lors de la suppression.");
       }
     } catch (error) {
-      console.error("Erreur lors de la suppression de la photo :", error);
-      alert("Erreur lors de la suppression de l'image. Veuillez réessayer.");
+      console.error("Erreur lors de la suppression :", error);
+      alert("Erreur lors de la suppression de l'image.");
     }
   };
 
-  const handlePhotoClick = (photo) => setSelectedPhoto(photo);
-  const closeModal = () => setSelectedPhoto(null);
-
-  const handleNextPhoto = () => {
-    const currentIndex = photos.findIndex(
-      (photo) => photo._id === selectedPhoto._id
-    );
-    const nextIndex = (currentIndex + 1) % photos.length;
-    setSelectedPhoto(photos[nextIndex]);
+  // Gestion de la lightbox
+  const openLightbox = (index) => {
+    setCurrentPhotoIndex(index);
+    setLightboxOpen(true);
   };
 
-  const handlePrevPhoto = () => {
-    const currentIndex = photos.findIndex(
-      (photo) => photo._id === selectedPhoto._id
-    );
-    const prevIndex = (currentIndex - 1 + photos.length) % photos.length;
-    setSelectedPhoto(photos[prevIndex]);
+  const closeLightbox = () => setLightboxOpen(false);
+
+  const showNext = (e) => {
+    e.stopPropagation();
+    setCurrentPhotoIndex((prev) => (prev + 1) % photos.length);
   };
 
-  const selectedIndex = selectedPhoto
-    ? photos.findIndex((photo) => photo._id === selectedPhoto._id) + 1
-    : 0;
+  const showPrev = (e) => {
+    e.stopPropagation();
+    setCurrentPhotoIndex((prev) => (prev - 1 + photos.length) % photos.length);
+  };
 
   return (
     <div className="portfolio-container">
@@ -105,18 +88,20 @@ const PortfolioGallery = () => {
 
       <div className="portfolio-gallery-column">
         <div className="portfolio-photo-gallery">
-          {photos.map((photo) => (
-            <div key={photo._id} className="portfolio-photo-card">
+          {photos.map((photo, i) => (
+            <div key={photo._id} className="photo-wrapper">
               <img
                 src={photo.imageUrl}
                 alt={photo.title}
-                onClick={() => handlePhotoClick(photo)}
+                onClick={() => openLightbox(i)}
               />
-
               {isLoggedIn && (
                 <div
                   className="delete-icon"
-                  onClick={() => handleDeletePhoto(photo._id, photo.public_id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeletePhoto(photo._id, photo.public_id);
+                  }}
                 >
                   <FontAwesomeIcon icon={faTrash} size="lg" />
                 </div>
@@ -125,36 +110,36 @@ const PortfolioGallery = () => {
           ))}
         </div>
 
-        {selectedPhoto && (
-          <div className="photo-modal" onClick={closeModal}>
-            <div
-              className="photo-modal-content"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button className="close-modal-btn" onClick={closeModal}>
-                X
+        {/* ✅ Lightbox identique à ReportingEditor */}
+        {lightboxOpen && photos[currentPhotoIndex] && (
+          <div className="lightbox-overlay" onClick={closeLightbox}>
+            <div className="lightbox-wrapper">
+              <img
+                className="lightbox-image"
+                src={photos[currentPhotoIndex].imageUrl}
+                alt={
+                  photos[currentPhotoIndex].title ||
+                  `Photo ${currentPhotoIndex + 1}`
+                }
+              />
+              <button
+                className="lightbox-prev"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  showPrev(e);
+                }}
+              >
+                &#10094;
               </button>
-
-              <FontAwesomeIcon
-                icon={faChevronLeft}
-                className="nav-arrow left-arrow"
-                onClick={handlePrevPhoto}
-              />
-              <div className="photo-display-wrapper">
-                <img
-                  src={selectedPhoto.imageUrl}
-                  alt={selectedPhoto.title}
-                  className="large-photo"
-                />
-                <div className="photo-counter">
-                  Photo {selectedIndex} sur {photos.length}
-                </div>
-              </div>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className="nav-arrow right-arrow"
-                onClick={handleNextPhoto}
-              />
+              <button
+                className="lightbox-next"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  showNext(e);
+                }}
+              >
+                &#10095;
+              </button>
             </div>
           </div>
         )}
