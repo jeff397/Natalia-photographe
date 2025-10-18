@@ -24,8 +24,9 @@ const GalleryManager = ({ galleryId }) => {
   const fetchGallery = useCallback(async () => {
     try {
       const res = await axios.get(
-        `${BACKEND_URL}/api/private-users/galleries/${galleryId}`
+        `${BACKEND_URL}/private-users/galleries/${galleryId}`
       );
+
       setPhotos(res.data.photos);
     } catch (err) {
       console.error("Erreur fetch gallery:", err);
