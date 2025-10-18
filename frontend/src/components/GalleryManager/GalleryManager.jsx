@@ -56,7 +56,7 @@ const GalleryManager = ({ galleryId }) => {
 
     try {
       await axios.post(
-        `${BACKEND_URL}/api/private-users/${galleryId}/photos`,
+        `${BACKEND_URL}/private-users/${galleryId}/photos`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -77,9 +77,7 @@ const GalleryManager = ({ galleryId }) => {
       message: "Voulez-vous vraiment supprimer cette photo ?",
       onConfirm: async () => {
         try {
-          await axios.delete(
-            `${BACKEND_URL}/api/private-users/photos/${photoId}`
-          );
+          await axios.delete(`${BACKEND_URL}/private-users/photos/${photoId}`);
           setPhotos((prev) => prev.filter((photo) => photo._id !== photoId));
           setAlert({
             type: "success",

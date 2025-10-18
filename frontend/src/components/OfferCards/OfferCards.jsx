@@ -43,7 +43,7 @@ function OfferCards() {
     if (!username || !password) return;
 
     try {
-      const res = await axios.post(`${BACKEND_URL}/api/private-users/login`, {
+      const res = await axios.post(`${BACKEND_URL}/private-users/login`, {
         username,
         password,
       });
