@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./privateGalleryAdminPanel.css";
 
-const BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 const PrivateGalleryAdminPanel = () => {
   const [clients, setClients] = useState([]);
