@@ -63,10 +63,11 @@ router.get("/presentation", async (req, res) => {
 });
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const { publicId } = req.body;
+  const { publicId } = req.query; // ← changement ici
 
   console.log("ID reçu:", id);
   console.log("public_id reçu:", publicId);
+
   if (!publicId) {
     return res.status(400).json({ error: "public_id manquant" });
   }
@@ -78,18 +79,22 @@ router.delete("/:id", async (req, res) => {
     );
     const cloudinaryResult = await cloudinary.uploader.destroy(publicId);
     console.log("Résultat Cloudinary:", cloudinaryResult);
+
     if (cloudinaryResult.result !== "ok") {
       return res.status(500).json({
         error: "Erreur lors de la suppression de l'image sur Cloudinary",
       });
     }
+
     const deletedPhoto = await Photo.findByIdAndDelete(id);
     console.log("Photo supprimée de MongoDB:", deletedPhoto);
+
     if (!deletedPhoto) {
       return res
         .status(404)
         .json({ error: "Photo non trouvée dans la base de données" });
     }
+
     res.status(200).json({ message: "Image supprimée avec succès" });
   } catch (err) {
     console.error("Erreur lors de la suppression de l'image:", err);

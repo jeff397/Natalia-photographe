@@ -7,6 +7,8 @@ import photoRoutes from "./routes/photoRoutes.js";
 import authRoutes from "./routes/auth.js";
 import reportingRoutes from "./routes/reportingRoutes.js";
 import testimonialRoutes from "./routes/testimonials.js";
+import privateUsersRoutes from "./routes/privateUsers.js";
+import galleryRoutes from "./routes/galleryRoutes.js";
 
 dotenv.config();
 
@@ -16,6 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
 
 // Test Multer pour l'upload
 app.use("/api/photos/upload", upload.single("image"), (req, res, next) => {
@@ -29,6 +32,8 @@ app.use("/api/photos", photoRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/reportings", reportingRoutes);
 app.use("/api/testimonials", testimonialRoutes);
+app.use("/api/private-users", privateUsersRoutes);
+app.use("/api/galleries", galleryRoutes);
 
 // --- Route racine pour tester le backend ---
 app.get("/", (req, res) => {

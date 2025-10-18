@@ -86,11 +86,12 @@ export const fetchPhotos = async () => {
 
 export const deleteImage = async (id, publicId) => {
   try {
-    const response = await fetch(`${BACKEND_URL}/photos/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ publicId }),
-    });
+    const response = await fetch(
+      `${BACKEND_URL}/photos/${id}?publicId=${publicId}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     if (!response.ok)
       throw new Error("Erreur lors de la suppression de l'image");

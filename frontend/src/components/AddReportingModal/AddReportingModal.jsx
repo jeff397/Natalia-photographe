@@ -77,7 +77,7 @@ const AddReportingModal = ({ isOpen, onClose, onNewReporting }) => {
           )}
 
           {error && <p className="error">{error}</p>}
-          <button type="submit" disabled={loading}>
+          <button className="modern-button" type="submit" disabled={loading}>
             {loading ? "Ajout en cours..." : "Ajouter"}
           </button>
         </form>

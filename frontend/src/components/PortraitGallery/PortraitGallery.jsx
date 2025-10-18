@@ -1,11 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { fetchPhotos, deleteImage } from "../../services/api";
 import GalleryModal from "../GalleryModal/GalleryModal";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./portraitGallery.css";
+
+// ✅ Composant d’alerte réutilisable
+const Alert = ({ type, message, onClose }) => {
+  if (!message) return null;
+  return (
+    <div className={`alert ${type}`}>
+      <span>{message}</span>
+      <button onClick={onClose} className="close-btn">
+        ✕
+      </button>
+    </div>
+  );
+};
+
+// ✅ Composant de confirmation
+const ConfirmModal = ({ message, onConfirm, onCancel }) => {
+  if (!message) return null;
+  return (
+    <div className="modal-overlay">
+      <div className="modal-box">
+        <h3>Confirmation</h3>
+        <p>{message}</p>
+        <div className="modal-actions">
+          <button className="confirm-btn" onClick={onConfirm}>
+            Oui, confirmer
+          </button>
+          <button className="cancel-btn" onClick={onCancel}>
+            Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const PortraitGallery = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -13,93 +46,96 @@ const PortraitGallery = () => {
   const [photos, setPhotos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [alert, setAlert] = useState({ type: "", message: "" });
+  const [confirmModal, setConfirmModal] = useState({
+    message: "",
+    onConfirm: null,
+  });
 
+  // Chargement des photos
   useEffect(() => {
     const loadPhotos = async () => {
       try {
         const allPhotos = await fetchPhotos();
-        console.log(
-          "Toutes les photos :",
-          allPhotos.map((p) => ({ title: p.title, category: p.category }))
+        const portraitPhotos = allPhotos.filter((photo) =>
+          photo.category?.toLowerCase().includes("portrait")
         );
-
-        const portraitPhotos = allPhotos.filter((photo) => {
-          return photo.category?.toLowerCase().includes("portrait");
-        });
-
         const sortedPhotos = portraitPhotos.sort(
           (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
-
         setPhotos(sortedPhotos);
       } catch (error) {
         console.error("Erreur lors du chargement des photos:", error);
+        setAlert({
+          type: "error",
+          message: "Impossible de charger les photos.",
+        });
       }
     };
-
     loadPhotos();
   }, [refreshKey]);
 
   const handleAddPhoto = () => {
-    setRefreshKey((prevKey) => prevKey + 1);
+    setRefreshKey((prev) => prev + 1);
     setIsModalOpen(false);
   };
 
-  const handleDeletePhoto = async (id, publicId) => {
-    try {
-      if (!publicId) {
-        console.error("Le publicId est manquant !");
-        return;
-      }
-
-      const response = await deleteImage(id, publicId);
-
-      if (response.status === 200) {
-        setPhotos((prevPhotos) =>
-          prevPhotos.filter((photo) => photo._id !== id)
-        );
-      } else {
-        console.error("Erreur lors de la suppression :", response);
-        alert("Erreur lors de la suppression de l'image.");
-      }
-    } catch (error) {
-      console.error("Erreur lors de la suppression de la photo :", error);
-      alert("Erreur lors de la suppression de l'image. Veuillez réessayer.");
-    }
+  // ✅ Confirmation avant suppression
+  const confirmDeletePhoto = (id, publicId) => {
+    setConfirmModal({
+      message: "Voulez-vous vraiment supprimer cette photo ?",
+      onConfirm: async () => {
+        try {
+          const response = await deleteImage(id, publicId);
+          if (response.status === 200) {
+            setPhotos((prev) => prev.filter((p) => p._id !== id));
+            setAlert({
+              type: "success",
+              message: "Photo supprimée avec succès.",
+            });
+          } else {
+            setAlert({
+              type: "error",
+              message: "Erreur lors de la suppression.",
+            });
+          }
+        } catch (error) {
+          console.error("Erreur lors de la suppression :", error);
+          setAlert({
+            type: "error",
+            message: "Erreur lors de la suppression de l'image.",
+          });
+        } finally {
+          setConfirmModal({ message: "", onConfirm: null });
+        }
+      },
+    });
   };
+
   return (
     <div className="portrait-events-container">
+      {/* ✅ Alertes en haut */}
+      <Alert
+        type={alert.type}
+        message={alert.message}
+        onClose={() => setAlert({ type: "", message: "" })}
+      />
+
       <div className="portrait-events-layout">
         <div className="text-column">
           {isLoggedIn && (
             <div className="button-wrapper">
-              {isLoggedIn && (
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="modern-button"
-                >
-                  Ajouter une photo
-                </button>
-              )}
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="modern-button"
+              >
+                Ajouter une photo
+              </button>
             </div>
           )}
           <p>
             Il y a des personnes, des relations, des instants que l’on souhaite
-            graver, pas forcément liés à un événement précis, mais simplement
-            pour garder une trace d’un moment, d’un sentiment, d’un lien.
-            Comment ça se passe ? Nous partons en balade — près de chez vous, à
-            la maison ou dans un lieu choisi ensemble selon l’ambiance
-            recherchée. L’idée est de créer un moment privilégié où je capture
-            vos émotions avec authenticité. Je vous guide si besoin, mais c’est
-            avant tout un temps pour vous, pour célébrer vos proches… ou
-            vous-même lors d’une séance portrait individuelle. Ces sessions sont
-            idéales pour garder le souvenir d’une grossesse, d’un âge
-            particulier avant que vos enfants grandissent, ou encore d’un couple
-            amoureux — sans qu’il faille forcément attendre des fiançailles ou
-            un anniversaire pour immortaliser ces liens. Et pourquoi pas en
-            faire un cadeau ? Je vous propose des bons cadeaux imprimables : la
-            personne qui le reçoit pourra ensuite me contacter pour fixer la
-            date de la séance.
+            graver...
           </p>
           <a href="/contact" className="modern-button">
             Confiez moi votre histoire
@@ -126,12 +162,11 @@ const PortraitGallery = () => {
             {photos.map((photo) => (
               <div key={photo._id} className="photo-card">
                 <img src={photo.imageUrl} alt={photo.title} />
-
                 {isLoggedIn && (
                   <div
                     className="delete-icon"
                     onClick={() =>
-                      handleDeletePhoto(photo._id, photo.public_id)
+                      confirmDeletePhoto(photo._id, photo.public_id)
                     }
                   >
                     <FontAwesomeIcon icon={faTrash} size="lg" />
@@ -150,6 +185,13 @@ const PortraitGallery = () => {
           forceCategory="photo-portrait"
         />
       )}
+
+      {/* ✅ Modale de confirmation */}
+      <ConfirmModal
+        message={confirmModal.message}
+        onConfirm={confirmModal.onConfirm}
+        onCancel={() => setConfirmModal({ message: "", onConfirm: null })}
+      />
     </div>
   );
 };

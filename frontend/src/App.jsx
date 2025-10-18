@@ -13,6 +13,9 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
+import PrivateGallery from "./components/PrivateGallery/PrivateGallery";
+import PrivateGalleryAdmin from "./pages/PrivateGalleryAdmin";
+import PrivateGalleryAdminDetail from "./pages/PrivateGalleryAdminDetail";
 import Footer from "./components/Footer/Footer";
 import { AuthContext } from "./context/AuthContext";
 
@@ -68,6 +71,23 @@ function App() {
           path="/Portfolio"
           element={<Portfolio isLoggedIn={isLoggedIn} />}
         />
+        <Route
+          path="/admin/private-gallery"
+          element={
+            isLoggedIn ? <PrivateGalleryAdmin /> : <Login onLogin={login} />
+          }
+        />
+        <Route
+          path="/admin/private-gallery/:galleryId"
+          element={
+            isLoggedIn ? (
+              <PrivateGalleryAdminDetail />
+            ) : (
+              <Login onLogin={login} />
+            )
+          }
+        />
+        <Route path="/galerie-privee/:galleryId" element={<PrivateGallery />} />
       </Routes>
       <Footer />
     </Router>

@@ -5,8 +5,8 @@ import "./navbar.css";
 
 function Navbar() {
   const { isLoggedIn, logout } = useContext(AuthContext);
-  const [isOpen, setIsOpen] = useState(false); // menu mobile
-  const [offersOpen, setOffersOpen] = useState(false); // dropdown mobile
+  const [isOpen, setIsOpen] = useState(false);
+  const [offersOpen, setOffersOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleOffers = () => setOffersOpen(!offersOpen);
@@ -30,7 +30,7 @@ function Navbar() {
 
       {/* Menu droit desktop */}
       <div className="nav-right">
-        {/* Offres desktop */}
+        {/* Dropdown Offres */}
         <div
           className={`offers-container ${offersOpen ? "active" : ""}`}
           onMouseEnter={() => setOffersOpen(true)}
@@ -51,6 +51,13 @@ function Navbar() {
             </Link>
           </div>
         </div>
+
+        {/* Lien Galerie privée en dehors du dropdown */}
+        {isLoggedIn && (
+          <Link to="/admin/private-gallery" className="menu-link">
+            Galerie privée
+          </Link>
+        )}
 
         <Link to="/Contact" className="menu-link">
           Contact
@@ -80,7 +87,6 @@ function Navbar() {
           Portfolio
         </Link>
 
-        {/* Offres mobile */}
         <div className="menu-link offers-link" onClick={toggleOffers}>
           Offres
           {offersOpen && (
@@ -109,6 +115,16 @@ function Navbar() {
             </div>
           )}
         </div>
+
+        {isLoggedIn && (
+          <Link
+            to="/admin/private-gallery"
+            className="menu-link"
+            onClick={() => setIsOpen(false)}
+          >
+            Galerie privée
+          </Link>
+        )}
 
         <Link
           to="/Contact"

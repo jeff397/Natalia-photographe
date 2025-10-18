@@ -50,22 +50,6 @@
   resize: none;
 }
 
-.modal-form .modern-button {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.modal-form .modern-button:hover {
-  background-color: #0056b3;
-}
-
 /* --- CARDS DE TÉMOIGNAGES --- */
 .testimonials-list {
   display: grid;
