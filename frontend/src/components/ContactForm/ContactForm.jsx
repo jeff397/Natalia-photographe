@@ -5,19 +5,49 @@ import "./contactForm.css";
 
 function Contact() {
   const [showModal, setShowModal] = useState(false);
+  const [status, setStatus] = useState(""); // "success" | "error" | ""
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch(
+        "https://formspree.io/f/mnnlapvq", // <-- ton URL Formspree
+        {
+          method: "POST",
+          body: data,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        setStatus("success");
+        form.reset();
+        // fermer la modal après 3 secondes seulement
+        setTimeout(() => setShowModal(false), 3000);
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    }
+  };
 
   return (
     <section className="contact" id="contact">
-      {/* Image de fond */}
       <img
         src="/assets/images/contactBackground.webp"
         alt="fond de contact"
         className="bg-img"
       />
 
-      {/* Contenu */}
       <div className="contact-content">
-        <h1 className="contact-title">Confiez moi votre histoire</h1>
+        <h1 className="contact-title">Confiez-moi votre histoire</h1>
         <p className="contact-txt">
           Chaque rencontre est une histoire à raconter…
         </p>
@@ -27,16 +57,16 @@ function Contact() {
           onClick={(e) => {
             e.preventDefault();
             setShowModal(true);
+            setStatus("");
           }}
         >
           Me contacter
         </a>
       </div>
 
-      {/* Modal */}
       {showModal && (
         <ContactModal onClose={() => setShowModal(false)}>
-          <form className="contact-form">
+          <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <input
                 type="text"
@@ -77,13 +107,26 @@ function Contact() {
                 placeholder=" "
                 rows="5"
                 required
-              ></textarea>
+              />
               <label htmlFor="message">Message</label>
             </div>
 
             <button type="submit" className="modern-button">
               Envoyer
             </button>
+
+            {/* Messages de confirmation ou d'erreur */}
+            {status === "success" && (
+              <p className="form-message success">
+                Merci ! Votre message a été envoyé. La modal se fermera dans 3
+                secondes.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="form-message error">
+                Oups… une erreur est survenue, veuillez réessayer.
+              </p>
+            )}
           </form>
         </ContactModal>
       )}
