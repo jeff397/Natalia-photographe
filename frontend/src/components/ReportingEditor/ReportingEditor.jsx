@@ -222,32 +222,27 @@ const ReportingEditor = ({
           {/* Lightbox */}
           {lightboxOpen && photos[currentPhotoIndex] && (
             <div className="lightbox-overlay" onClick={closeLightbox}>
-              <img
-                className="lightbox-image"
-                src={photos[currentPhotoIndex].imageUrl}
-                alt={
-                  photos[currentPhotoIndex].title ||
-                  `Photo ${currentPhotoIndex + 1}`
-                }
-              />
-              <button
-                className="lightbox-prev"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  showPrev(e);
-                }}
+              <div
+                className="lightbox-wrapper"
+                onClick={(e) => e.stopPropagation()}
               >
-                &#10094;
-              </button>
-              <button
-                className="lightbox-next"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  showNext(e);
-                }}
-              >
-                &#10095;
-              </button>
+                <button className="lightbox-prev" onClick={showPrev}>
+                  &#10094;
+                </button>
+
+                <img
+                  className="lightbox-image"
+                  src={photos[currentPhotoIndex].imageUrl}
+                  alt={
+                    photos[currentPhotoIndex].title ||
+                    `Photo ${currentPhotoIndex + 1}`
+                  }
+                />
+
+                <button className="lightbox-next" onClick={showNext}>
+                  &#10095;
+                </button>
+              </div>
             </div>
           )}
         </div>
