@@ -1,4 +1,4 @@
-const BACKEND_URL = import.meta.env.VITE_API_URL;
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export { uploadImageToServer as uploadImage };
 
@@ -6,7 +6,7 @@ export const uploadImageToServer = async (
   file,
   title,
   description,
-  category
+  category,
 ) => {
   if (!file || !title || !description || !category) {
     throw new Error("Tous les champs sont obligatoires pour l'upload.");
@@ -19,14 +19,14 @@ export const uploadImageToServer = async (
 
     const uploadRes = await fetch(
       "https://api.cloudinary.com/v1_1/dczxdautr/image/upload",
-      { method: "POST", body: formData }
+      { method: "POST", body: formData },
     );
 
     const uploadData = await uploadRes.json();
 
     if (!uploadRes.ok || !uploadData.secure_url) {
       throw new Error(
-        uploadData.error?.message || "Échec de l'upload vers Cloudinary"
+        uploadData.error?.message || "Échec de l'upload vers Cloudinary",
       );
     }
 
@@ -48,7 +48,7 @@ export const uploadImageToServer = async (
 
     if (!backendRes.ok) {
       throw new Error(
-        data.message || "Erreur lors de l'enregistrement côté serveur"
+        data.message || "Erreur lors de l'enregistrement côté serveur",
       );
     }
 
@@ -90,7 +90,7 @@ export const deleteImage = async (id, publicId) => {
       `${BACKEND_URL}/photos/${id}?publicId=${publicId}`,
       {
         method: "DELETE",
-      }
+      },
     );
 
     if (!response.ok)
@@ -126,7 +126,7 @@ export const uploadReporting = async (file, title, subtitle) => {
 
     const uploadRes = await fetch(
       "https://api.cloudinary.com/v1_1/dczxdautr/image/upload",
-      { method: "POST", body: formData }
+      { method: "POST", body: formData },
     );
 
     const uploadData = await uploadRes.json();
