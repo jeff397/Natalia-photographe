@@ -14,7 +14,7 @@ import {
 import "./reportingEditor.css";
 
 // ✅ FIX ICI
-const BACKEND_URL = import.meta.env.NEXT_PUBLIC_API_URL;
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 const ReportingEditor = ({
   initialReporting,

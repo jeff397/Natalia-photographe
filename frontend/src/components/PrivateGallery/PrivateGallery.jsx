@@ -7,7 +7,7 @@ const PrivateGallery = () => {
   const [photos, setPhotos] = useState([]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const BACKEND_URL = import.meta.env.NEXT_PUBLIC_API_URL;
+  const BACKEND_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchGallery = async () => {

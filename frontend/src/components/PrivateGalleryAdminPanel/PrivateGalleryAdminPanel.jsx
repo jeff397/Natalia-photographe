@@ -4,7 +4,7 @@ import axios from "axios";
 import "./privateGalleryAdminPanel.css";
 
 // ✅ FIX Next.js
-const BACKEND_URL = import.meta.env.NEXT_PUBLIC_API_URL;
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 const PrivateGalleryAdminPanel = () => {
   const [clients, setClients] = useState([]);
