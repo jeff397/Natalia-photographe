@@ -13,12 +13,15 @@ import {
 
 import "./reportingEditor.css";
 
+// ✅ FIX ICI
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const ReportingEditor = ({
   initialReporting,
   title: initialTitle,
   isLoggedIn,
 }) => {
-  const { reportingId } = useParams(); // récupère l'id depuis l'URL si nécessaire
+  const { reportingId } = useParams();
   const [reporting, setReporting] = useState(initialReporting || null);
   const [title, setTitle] = useState(initialTitle || "");
   const [intro, setIntro] = useState(initialReporting?.intro || "");
@@ -50,7 +53,7 @@ const ReportingEditor = ({
     setCurrentPhotoIndex((prev) => (prev - 1 + photos.length) % photos.length);
   };
 
-  // Charger le reportage depuis le backend si initialReporting absent
+  // ✅ FIX ICI
   useEffect(() => {
     const loadReporting = async () => {
       try {
@@ -59,11 +62,12 @@ const ReportingEditor = ({
           setIntro(initialReporting.intro || "");
           setTitle(initialReporting.title || "");
         } else if (reportingId) {
-          const res = await fetch(
-            `${import.meta.env.VITE_API_URL}/reportings/${reportingId}`
-          );
+          const res = await fetch(`${BACKEND_URL}/reportings/${reportingId}`);
+
           if (!res.ok) throw new Error("Impossible de charger le reportage");
+
           const data = await res.json();
+
           setReporting(data);
           setIntro(data.intro || "");
           setTitle(data.title || "");
@@ -75,37 +79,43 @@ const ReportingEditor = ({
         setLoading(false);
       }
     };
+
     loadReporting();
   }, [initialReporting, reportingId]);
 
-  // Charger les photos liées
   useEffect(() => {
     const loadPhotos = async () => {
       if (!reporting) return;
+
       try {
         const allPhotos = await fetchPhotos();
+
         const categoryName = `reportage-${reporting.title
           .replace(/\s+/g, "-")
           .toLowerCase()}`;
+
         const filtered = allPhotos.filter((p) => p.category === categoryName);
+
         setPhotos(filtered);
       } catch (err) {
-        console.error("Erreur lors du chargement des photos :", err);
+        console.error("Erreur photos :", err);
       }
     };
+
     loadPhotos();
   }, [reporting]);
 
-  // Sauvegarde de l'introduction
   const handleIntroSave = async () => {
     if (!reporting) return;
+
     setSaving(true);
+
     try {
       const updated = await updateReporting(reporting._id, { intro });
       setReporting(updated);
     } catch (err) {
       console.error(err);
-      alert("Erreur lors de la sauvegarde");
+      alert("Erreur sauvegarde");
     } finally {
       setSaving(false);
     }
@@ -117,50 +127,53 @@ const ReportingEditor = ({
 
   const confirmDelete = async () => {
     if (!confirmDeleteData) return;
+
     try {
       await deleteImage(confirmDeleteData.photoId, confirmDeleteData.publicId);
+
       setPhotos((prev) =>
-        prev.filter((p) => p._id !== confirmDeleteData.photoId)
+        prev.filter((p) => p._id !== confirmDeleteData.photoId),
       );
     } catch (err) {
-      console.error("Erreur suppression photo :", err);
-      alert("Impossible de supprimer la photo");
+      console.error("Erreur suppression :", err);
+      alert("Impossible de supprimer");
     } finally {
       setConfirmDeleteData(null);
     }
   };
 
-  // Upload d'image
   const handleAddPhoto = async (file) => {
-    if (!reporting) return alert("Vous devez d'abord créer le reportage");
+    if (!reporting) return alert("Créer le reportage avant");
 
     setUploading(true);
+
     try {
       const categoryName = `reportage-${reporting.title
         .replace(/\s+/g, "-")
         .toLowerCase()}`;
+
       await uploadImage(
         file,
         `Photo du reportage ${reporting.title}`,
-        reporting.intro || "Photo du reportage",
-        categoryName
+        reporting.intro || "Photo",
+        categoryName,
       );
 
-      // Recharge les photos depuis le serveur
       const allPhotos = await fetchPhotos();
-      const filtered = allPhotos.filter((p) => p.category === categoryName);
-      setPhotos(filtered);
 
+      const filtered = allPhotos.filter((p) => p.category === categoryName);
+
+      setPhotos(filtered);
       setModalOpen(false);
     } catch (err) {
       console.error(err);
-      alert("Erreur lors de l'ajout de la photo");
+      alert("Erreur upload");
     } finally {
       setUploading(false);
     }
   };
 
-  if (loading) return <p>Chargement du reportage...</p>;
+  if (loading) return <p>Chargement...</p>;
 
   return (
     <div className="reporting-editor">
@@ -171,16 +184,15 @@ const ReportingEditor = ({
           <textarea
             value={intro}
             onChange={(e) => setIntro(e.target.value)}
-            placeholder="Écrivez l'introduction..."
             rows={5}
-            style={{ width: "100%", marginBottom: "1rem" }}
           />
-          <button onClick={handleIntroSave} disabled={saving}>
-            {saving ? "Sauvegarde..." : "Sauvegarder l'introduction"}
+
+          <button onClick={handleIntroSave}>
+            {saving ? "Sauvegarde..." : "Sauvegarder"}
           </button>
 
-          <button onClick={() => setModalOpen(true)} disabled={uploading}>
-            {uploading ? "Upload en cours..." : "Ajouter des photos"}
+          <button onClick={() => setModalOpen(true)}>
+            {uploading ? "Upload..." : "Ajouter photo"}
           </button>
 
           <AddPhotoModal
@@ -194,62 +206,29 @@ const ReportingEditor = ({
 
       {intro && <p>{intro}</p>}
 
-      {photos.length > 0 && (
-        <div className="reporting-photos">
-          {photos.map((p, i) =>
-            p.imageUrl ? (
-              <div key={i} className="photo-wrapper">
-                <img
-                  src={p.imageUrl}
-                  alt={p.title || `Photo ${i + 1}`}
-                  onClick={() => openLightbox(i)}
-                />
-                {isLoggedIn && (
-                  <div
-                    className="delete-icon"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteClick(p._id, p.public_id); // <-- ajoute public_id ici
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faTrash} size="lg" />
-                  </div>
-                )}
-              </div>
-            ) : null
-          )}
+      <div className="reporting-photos">
+        {photos.map((p, i) => (
+          <div key={i} className="photo-wrapper">
+            <img src={p.imageUrl} alt="" onClick={() => openLightbox(i)} />
 
-          {/* Lightbox */}
-          {lightboxOpen && photos[currentPhotoIndex] && (
-            <div className="lightbox-overlay" onClick={closeLightbox}>
+            {isLoggedIn && (
               <div
-                className="lightbox-wrapper"
-                onClick={(e) => e.stopPropagation()}
+                className="delete-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteClick(p._id, p.public_id);
+                }}
               >
-                <button className="lightbox-prev" onClick={showPrev}>
-                  &#10094;
-                </button>
-
-                <img
-                  className="lightbox-image"
-                  src={photos[currentPhotoIndex].imageUrl}
-                  alt={
-                    photos[currentPhotoIndex].title ||
-                    `Photo ${currentPhotoIndex + 1}`
-                  }
-                />
-
-                <button className="lightbox-next" onClick={showNext}>
-                  &#10095;
-                </button>
+                <FontAwesomeIcon icon={faTrash} />
               </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+          </div>
+        ))}
+      </div>
+
       <ConfirmModal
-        isOpen={!!confirmDeleteData} // <-- c’est ici
-        message="Voulez-vous vraiment supprimer cette photo ?"
+        isOpen={!!confirmDeleteData}
+        message="Supprimer cette photo ?"
         onConfirm={confirmDelete}
         onCancel={() => setConfirmDeleteData(null)}
       />

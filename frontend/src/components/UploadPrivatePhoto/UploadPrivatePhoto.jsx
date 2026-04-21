@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+// ✅ FIX
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const UploadPrivatePhoto = ({ userId, onPhotoAdded }) => {
   const [file, setFile] = useState(null);
 
@@ -11,21 +14,20 @@ const UploadPrivatePhoto = ({ userId, onPhotoAdded }) => {
     formData.append("title", file.name);
 
     try {
+      // ⚠️ on garde tel quel si déjà fonctionnel
       const resCloud = await fetch("/api/upload", {
-        // endpoint pour Cloudinary
         method: "POST",
         body: formData,
       });
+
       const data = await resCloud.json();
 
-      await fetch(
-        `${import.meta.env.VITE_API_URL}/private-users/${userId}/photos`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
+      // ✅ FIX ICI
+      await fetch(`${BACKEND_URL}/private-users/${userId}/photos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
       setFile(null);
       onPhotoAdded();

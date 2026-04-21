@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./galleryManager.css";
 
-const BACKEND_URL = import.meta.env.VITE_API_URL;
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const GalleryManager = ({ galleryId }) => {
   const [photos, setPhotos] = useState([]);
@@ -24,7 +24,7 @@ const GalleryManager = ({ galleryId }) => {
   const fetchGallery = useCallback(async () => {
     try {
       const res = await axios.get(
-        `${BACKEND_URL}/private-users/galleries/${galleryId}`
+        `${BACKEND_URL}/private-users/galleries/${galleryId}`,
       );
 
       setPhotos(res.data.photos);
@@ -58,7 +58,7 @@ const GalleryManager = ({ galleryId }) => {
       await axios.post(
         `${BACKEND_URL}/private-users/${galleryId}/photos`,
         formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { headers: { "Content-Type": "multipart/form-data" } },
       );
 
       // Reset

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./privateGalleryAdminPanel.css";
 
-const BACKEND_URL = import.meta.env.VITE_API_URL;
+// ✅ FIX Next.js
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const PrivateGalleryAdminPanel = () => {
   const [clients, setClients] = useState([]);
@@ -56,6 +57,7 @@ const PrivateGalleryAdminPanel = () => {
       setName("");
       setUsername("");
       fetchClients();
+
       setAlert({
         type: "success",
         message: `Client créé ! Mot de passe : ${pwd}`,
@@ -103,7 +105,6 @@ const PrivateGalleryAdminPanel = () => {
         onClose={() => setAlert({ type: "", message: "" })}
       />
 
-      {/* Formulaire création client */}
       <div className="private-admin-form">
         <input
           placeholder="Nom du client"
@@ -125,13 +126,16 @@ const PrivateGalleryAdminPanel = () => {
       )}
 
       <h2>Clients existants</h2>
+
       <div className="private-admin-list">
         {clients.map((c) => (
           <div key={c._id} className="client-card">
             <h3 className="client-name">{c.clientName || "Nom non défini"}</h3>
+
             <p>
               <strong>Identifiant :</strong> {c.username}
             </p>
+
             <p>
               <strong>Mot de passe :</strong> {c.password}
             </p>
@@ -159,7 +163,6 @@ const PrivateGalleryAdminPanel = () => {
         ))}
       </div>
 
-      {/* ✅ Modale de confirmation stylisée */}
       <ConfirmModal
         message={confirmModal.message}
         onConfirm={confirmModal.onConfirm}
@@ -169,7 +172,7 @@ const PrivateGalleryAdminPanel = () => {
   );
 };
 
-// ✅ Composant d’alerte stylisée
+// Alert
 const Alert = ({ type = "info", message, onClose }) => {
   if (!message) return null;
 
@@ -183,7 +186,7 @@ const Alert = ({ type = "info", message, onClose }) => {
   );
 };
 
-// ✅ Composant de confirmation stylisée
+// Modal
 const ConfirmModal = ({ message, onConfirm, onCancel }) => {
   if (!message) return null;
 
@@ -192,6 +195,7 @@ const ConfirmModal = ({ message, onConfirm, onCancel }) => {
       <div className="modal-box">
         <h3>Confirmation</h3>
         <p>{message}</p>
+
         <div className="modal-actions">
           <button className="confirm-btn" onClick={onConfirm}>
             Oui, supprimer

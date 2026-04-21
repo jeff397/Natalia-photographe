@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-
 import "./loginform.css";
 
-// Backend pour l'authentification
-const BACKEND_URL = `${import.meta.env.VITE_API_URL}/auth`;
+// ✅ URL backend propre (Next.js)
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BACKEND_URL = `${BASE_URL}/auth`;
 
 function LoginForm() {
   const { login } = useContext(AuthContext);
@@ -48,6 +48,7 @@ function LoginForm() {
   return (
     <div className="login-container">
       <h2>Se connecter</h2>
+
       <form onSubmit={handleSubmit} className="login-form">
         <div className="input-group">
           <label htmlFor="email">Email</label>
