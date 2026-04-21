@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./loginform.css";
 
-// ✅ URL backend propre (Next.js)
-const BASE_URL = import.meta.env.NEXT_PUBLIC_API_URL;
+// ✅ Vite env + fallback sécurisé
+const BASE_URL =
+  import.meta.env.VITE_API_URL || "https://api.nataliagoja.com/api";
+
 const BACKEND_URL = `${BASE_URL}/auth`;
 
 function LoginForm() {
@@ -29,19 +31,30 @@ function LoginForm() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      // ✅ sécurise la réponse (évite crash JSON)
+      const text = await response.text();
 
-      if (response.ok) {
-        setMessage(data.message || "Vous êtes bien connecté 🎉");
-        localStorage.setItem("isLoggedIn", "true");
-        login();
-        navigate("/", { state: { isLoggedIn: true } });
-      } else {
-        setMessage(data.error || "Une erreur est survenue.");
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error("Réponse serveur invalide");
       }
+
+      // ❌ gestion erreur backend
+      if (!response.ok) {
+        setMessage(data.error || "Erreur de connexion");
+        return;
+      }
+
+      // ✅ success
+      setMessage(data.message || "Vous êtes bien connecté 🎉");
+      localStorage.setItem("isLoggedIn", "true");
+      login();
+      navigate("/", { state: { isLoggedIn: true } });
     } catch (err) {
       console.error("Erreur de connexion :", err);
-      setMessage("Erreur lors de la connexion.");
+      setMessage(err.message || "Erreur lors de la connexion.");
     }
   };
 
@@ -51,10 +64,9 @@ function LoginForm() {
 
       <form onSubmit={handleSubmit} className="login-form">
         <div className="input-group">
-          <label htmlFor="email">Email</label>
+          <label>Email</label>
           <input
             type="email"
-            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Entrez votre email"
@@ -63,10 +75,9 @@ function LoginForm() {
         </div>
 
         <div className="input-group">
-          <label htmlFor="password">Mot de passe</label>
+          <label>Mot de passe</label>
           <input
             type="password"
-            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Entrez votre mot de passe"
