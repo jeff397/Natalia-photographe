@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import UploadPrivatePhoto from "./UploadPrivatePhoto";
 import "./adminPrivateGallery.css";
 
-const BACKEND_URL = import.meta.env.VITE_API_URL;
+// ✅ CORRIGÉ VITE ENV
+const BACKEND_URL =
+  import.meta.env.VITE_API_URL || "https://api.nataliagoja.com/api";
 
 const AdminPrivateGallery = () => {
   const [clients, setClients] = useState([]);
@@ -13,9 +15,18 @@ const AdminPrivateGallery = () => {
     try {
       const res = await fetch(`${BACKEND_URL}/private-users`);
       const data = await res.json();
-      setClients(data);
+
+      console.log("clients API:", data);
+
+      // ✅ SAFE MODE (évite crash .map)
+      const safeData = Array.isArray(data)
+        ? data
+        : data.clients || data.data || [];
+
+      setClients(safeData);
     } catch (err) {
       console.error("Erreur fetchClients:", err);
+      setClients([]); // sécurité écran blanc
     }
   };
 
@@ -31,9 +42,7 @@ const AdminPrivateGallery = () => {
     try {
       const res = await fetch(`${BACKEND_URL}/private-users`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           clientName: newClientName,
           username: newUsername,
@@ -82,7 +91,8 @@ const AdminPrivateGallery = () => {
       <div className="clients-list">
         <h2>Clients existants</h2>
 
-        {clients.map((c) => (
+        {/* ✅ PROTECTION ANTI CRASH */}
+        {(Array.isArray(clients) ? clients : []).map((c) => (
           <div key={c._id} className="client-card">
             <strong>{c.clientName}</strong>
 
