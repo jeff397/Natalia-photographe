@@ -60,11 +60,11 @@ const EventGallery = () => {
       try {
         const allPhotos = await fetchPhotos();
         const eventPhotos = allPhotos.filter(
-          (photo) => photo.category?.trim().toLowerCase() === "photo-events"
+          (photo) => photo.category?.trim().toLowerCase() === "photo-events",
         );
 
         const sortedPhotos = eventPhotos.sort(
-          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
         );
 
         setPhotos(sortedPhotos);
@@ -158,11 +158,11 @@ const EventGallery = () => {
           <div className="offer-container">
             <h1 className="offer-title">Mon offre</h1>
             <ul className="offer-list">
-              <li>2h de présence</li>
+              <li>2h - 3h de présence</li>
               <li>80 à 120 photos soigneusement éditées</li>
               <li>Galerie privée en ligne</li>
               <li>
-                <strong>180 euros</strong>
+                <strong>400 euros</strong>
               </li>
             </ul>
           </div>
