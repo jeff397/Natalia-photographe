@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./offerCards.css";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+const BACKEND_URL = import.meta.env.NEXT_PUBLIC_API_URL;
 
 function OfferCards() {
   const navigate = useNavigate();

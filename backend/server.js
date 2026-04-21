@@ -40,18 +40,18 @@ app.get("/", (req, res) => {
   res.send("Backend en ligne ✅");
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = import.meta.env.PORT || 5000;
 
 // Connexion à MongoDB et démarrage du serveur
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(import.meta.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     console.log("✅ Connecté à MongoDB");
     app.listen(PORT, () =>
-      console.log(`🚀 Serveur démarré sur le port ${PORT}`)
+      console.log(`🚀 Serveur démarré sur le port ${PORT}`),
     );
   })
   .catch((err) => console.log("❌ Erreur de connexion à MongoDB :", err));

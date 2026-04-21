@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./galleryManager.css";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+const BACKEND_URL = import.meta.env.NEXT_PUBLIC_API_URL;
 
 const GalleryManager = ({ galleryId }) => {
   const [photos, setPhotos] = useState([]);

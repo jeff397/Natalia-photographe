@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import "./loginform.css";
 
 // ✅ URL backend propre (Next.js)
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL = import.meta.env.NEXT_PUBLIC_API_URL;
 const BACKEND_URL = `${BASE_URL}/auth`;
 
 function LoginForm() {

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import UploadPrivatePhoto from "./UploadPrivatePhoto";
 import "./adminPrivateGallery.css";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+const BACKEND_URL = import.meta.env.NEXT_PUBLIC_API_URL;
 
 const AdminPrivateGallery = () => {
   const [clients, setClients] = useState([]);

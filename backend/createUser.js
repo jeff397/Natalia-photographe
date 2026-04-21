@@ -8,13 +8,13 @@ dotenv.config(); // pour utiliser MONGO_URI depuis ton .env
 
 async function createUser() {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
+    await mongoose.connect(import.meta.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
 
-    const email = process.env.ADMIN_EMAIL;
-    const plainPassword = process.env.ADMIN_PASSWORD;
+    const email = import.meta.env.ADMIN_EMAIL;
+    const plainPassword = import.meta.env.ADMIN_PASSWORD;
 
     const hashedPassword = await bcrypt.hash(plainPassword, 10);
 

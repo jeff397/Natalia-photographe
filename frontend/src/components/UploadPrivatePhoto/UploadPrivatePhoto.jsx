@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // ✅ FIX
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+const BACKEND_URL = import.meta.env.NEXT_PUBLIC_API_URL;
 
 const UploadPrivatePhoto = ({ userId, onPhotoAdded }) => {
   const [file, setFile] = useState(null);
