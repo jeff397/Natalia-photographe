@@ -8,15 +8,16 @@ const BACKEND_URL = process.env.VITE_API_URL;
 
 const GalleryManager = ({ galleryId }) => {
   const [photos, setPhotos] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [previews, setPreviews] = useState([]);
+  const [files, setFiles] = useState([]); // Tableau pour gérer plusieurs fichiers
+  const [previews, setPreviews] = useState([]); // Tableau pour gérer plusieurs previews
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [alert, setAlert] = useState({ type: "", message: "" });
 
-  // États pour suivre la progression de la file d'attente
+  // États indispensables pour l'upload de masse
   const [uploading, setUploading] = useState(false);
   const [currentUploadIndex, setCurrentUploadIndex] = useState(0);
-  const [alert, setAlert] = useState({ type: "", message: "" });
+
   const [confirmModal, setConfirmModal] = useState({
     message: "",
     onConfirm: null,
@@ -37,6 +38,7 @@ const GalleryManager = ({ galleryId }) => {
     fetchGallery();
   }, [fetchGallery]);
 
+  // Gérer la sélection de plusieurs fichiers à la fois
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     setFiles(selectedFiles);
@@ -49,7 +51,7 @@ const GalleryManager = ({ galleryId }) => {
     }
   };
 
-  // La fonction magique qui envoie les photos une par une
+  // Fonction magique d'upload de masse automatique
   const handleUpload = async () => {
     if (files.length === 0) return;
 
@@ -59,16 +61,16 @@ const GalleryManager = ({ galleryId }) => {
       message: `Préparation de l'upload de ${files.length} photos...`,
     });
 
-    // Boucle asynchrone sur chaque fichier
+    // On boucle sur chaque fichier sélectionné
     for (let i = 0; i < files.length; i++) {
-      setCurrentUploadIndex(i + 1); // Met à jour le compteur visuel (ex: 1/25)
+      setCurrentUploadIndex(i + 1); // Met à jour le compteur visuel (ex: 1 / 15)
 
       const formData = new FormData();
-      formData.append("image", files[i]); // Utilise votre route SINGLE existante
-      formData.append("title", "");
+      formData.append("image", files[i]); // Utilise votre route SINGLE actuelle
+      formData.append("title", ""); // Pas de titre en upload de masse
 
       try {
-        // On attend que la photo actuelle soit chez Cloudinary avant de passer à la suivante
+        // On attend que la photo en cours soit bien envoyée avant de passer à la suivante
         await axios.post(
           `${BACKEND_URL}/private-users/${galleryId}/photos`,
           formData,
@@ -76,54 +78,99 @@ const GalleryManager = ({ galleryId }) => {
         );
       } catch (err) {
         console.error(`Erreur upload photo index ${i}:`, err);
-        // On continue même si une photo échoue, mais on prévient l'utilisateur
         setAlert({
           type: "error",
-          message: `Échec de la photo numéro ${i + 1}, passage aux suivantes...`,
+          message: `Erreur sur la photo numéro ${i + 1}.`,
         });
       }
     }
 
-    // Une fois la boucle complètement terminée
+    // Reset et rafraîchissement global une fois fini
     setUploading(false);
     setFiles([]);
     setPreviews([]);
-    fetchGallery(); // On rafraîchit la galerie d'un coup
+    fetchGallery(); // Vos nouvelles photos s'ajoutent à l'écran ici !
     setAlert({
       type: "success",
-      message: "Toutes les photos ont été traitées avec succès ! 🎉",
+      message: "Toutes les photos ont été uploadées ! 🎉",
     });
   };
 
-  // ... (Conservez vos fonctions de lightbox et delete inchangées)
+  const confirmDeletePhoto = (photoId) => {
+    setConfirmModal({
+      message: "Voulez-vous vraiment supprimer cette photo ?",
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${BACKEND_URL}/private-users/photos/${photoId}`);
+          setPhotos((prev) => prev.filter((photo) => photo._id !== photoId));
+          setAlert({
+            type: "success",
+            message: "Photo supprimée avec succès !",
+          });
+        } catch (err) {
+          console.error("Erreur suppression:", err);
+          setAlert({
+            type: "error",
+            message: "Erreur lors de la suppression de la photo.",
+          });
+        } finally {
+          setConfirmModal({ message: "", onConfirm: null });
+        }
+      },
+    });
+  };
+
+  const openLightbox = (index) => {
+    setCurrentIndex(index);
+    setLightboxOpen(true);
+  };
+  const closeLightbox = () => setLightboxOpen(false);
+  const nextPhoto = () => setCurrentIndex((prev) => (prev + 1) % photos.length);
+  const prevPhoto = () =>
+    setCurrentIndex((prev) => (prev - 1 + photos.length) % photos.length);
 
   return (
     <div className="gallery-manager">
-      {/* Upload */}
+      {/* Zone de l'alerte */}
+      {alert.message && (
+        <div
+          className={`alert-message ${alert.type}`}
+          style={{
+            margin: "10px 0",
+            padding: "10px",
+            borderRadius: "4px",
+            background: alert.type === "error" ? "#ffcccc" : "#e5f4e3",
+          }}
+        >
+          {alert.message}
+        </div>
+      )}
+
+      {/* Formulaire d'upload de masse */}
       <div className="gallery-manager-upload">
         <input
           type="file"
           id="fileInput"
-          multiple // Permet de sélectionner 20, 30, 50 photos d'un coup
+          multiple // Permet la sélection de masse
           onChange={handleFileChange}
           disabled={uploading}
           style={{ display: "none" }}
         />
         <label htmlFor="fileInput" className="custom-file-button">
           {files.length > 0
-            ? `${files.length} photos sélectionnées`
+            ? `${files.length} fichiers sélectionnés`
             : "Choisir des fichiers"}
         </label>
 
-        {/* Affichage des miniatures sélectionnées */}
+        {/* Aperçu des miniatures sélectionnées avant envoi */}
         {previews.length > 0 && !uploading && (
           <div
             className="previews-grid"
             style={{
               display: "flex",
-              gap: "5px",
+              gap: "8px",
               flexWrap: "wrap",
-              margin: "10px 0",
+              margin: "15px 0",
             }}
           >
             {previews.map((url, index) => (
@@ -135,14 +182,14 @@ const GalleryManager = ({ galleryId }) => {
                   width: "60px",
                   height: "60px",
                   objectFit: "cover",
-                  borderRadius: "4px",
+                  borderRadius: "5px",
                 }}
               />
             ))}
           </div>
         )}
 
-        {/* Message d'attente pendant l'upload en masse */}
+        {/* Compteur d'envoi dynamique */}
         {uploading && (
           <div
             className="upload-progress"
@@ -155,21 +202,100 @@ const GalleryManager = ({ galleryId }) => {
         <button
           onClick={handleUpload}
           disabled={files.length === 0 || uploading}
-          style={{
-            backgroundColor: uploading ? "#bdc3c7" : "#2ecc71",
-            color: "white",
-            padding: "10px 20px",
-            border: "none",
-            cursor: "pointer",
-          }}
         >
           {uploading
             ? "Upload en cours..."
-            : `Lancer l'upload (${files.length} photos)`}
+            : `Uploader le paquet (${files.length})`}
         </button>
       </div>
 
-      {/* ... Votre grille de photos existante */}
+      {/* Galerie d'affichage de toutes vos photos existantes */}
+      <div className="gallery-manager-grid">
+        {photos.map((photo, i) => (
+          <div
+            key={photo._id}
+            className="gallery-manager-card"
+            onClick={() => openLightbox(i)}
+          >
+            <img src={photo.imageUrl} alt={photo.title || `Photo ${i + 1}`} />
+            {photo.title && (
+              <span className="gallery-manager-card-title">{photo.title}</span>
+            )}
+            <div
+              className="delete-icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                confirmDeletePhoto(photo._id);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Lightbox */}
+      {lightboxOpen && photos[currentIndex] && (
+        <div className="gallery-manager-lightbox" onClick={closeLightbox}>
+          <button
+            className="gallery-manager-lightbox-prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              prevPhoto();
+            }}
+          >
+            &#10094;
+          </button>
+          <img
+            className="gallery-manager-lightbox-image"
+            src={photos[currentIndex].imageUrl}
+            alt={photos[currentIndex].title || `Photo ${currentIndex + 1}`}
+          />
+          <button
+            className="gallery-manager-lightbox-next"
+            onClick={(e) => {
+              e.stopPropagation();
+              nextPhoto();
+            }}
+          >
+            &#10095;
+          </button>
+          <button
+            className="gallery-manager-lightbox-close"
+            onClick={closeLightbox}
+          >
+            &times;
+          </button>
+        </div>
+      )}
+
+      {/* Fenêtre de confirmation de suppression */}
+      <ConfirmModal
+        message={confirmModal.message}
+        onConfirm={confirmModal.onConfirm}
+        onCancel={() => setConfirmModal({ message: "", onConfirm: null })}
+      />
+    </div>
+  );
+};
+
+const ConfirmModal = ({ message, onConfirm, onCancel }) => {
+  if (!message) return null;
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-box">
+        <h3>Confirmation</h3>
+        <p>{message}</p>
+        <div className="modal-actions">
+          <button className="confirm-btn" onClick={onConfirm}>
+            Oui, confirmer
+          </button>
+          <button className="cancel-btn" onClick={onCancel}>
+            Annuler
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
