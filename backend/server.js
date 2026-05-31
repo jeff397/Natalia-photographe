@@ -14,10 +14,10 @@ dotenv.config();
 
 const app = express();
 
-// Middleware CORS et body parser
+// Middleware CORS et body parser (avec limites augmentées à 10 Mo)
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use("/uploads", express.static("uploads"));
 
 // Test Multer pour l'upload
@@ -40,11 +40,11 @@ app.get("/", (req, res) => {
   res.send("Backend en ligne ✅");
 });
 
-const PORT = import.meta.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 // Connexion à MongoDB et démarrage du serveur
 mongoose
-  .connect(import.meta.env.MONGO_URI, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
