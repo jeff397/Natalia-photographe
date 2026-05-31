@@ -16,19 +16,18 @@ const storage = new CloudinaryStorage({
   params: {
     folder: "myportfolio",
     allowed_formats: ["jpg", "png", "jpeg", "webp"],
+    resource_type: "auto", // 👈 Autorise Cloudinary à recevoir des fichiers lourds
+    chunk_size: 20000000, // 👈 Découpe l'envoi en morceaux (chunks) pour contourner la limite de 10 M
     transformation: [{ width: 1200, height: 800, crop: "limit" }],
   },
 });
 
 export { cloudinary };
 
-// Configuration finale : Limite augmentée à 50 Mo pour de bon !
+// Modification ici : Ajout de la limite de taille à 10 Mo
 export const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 50 * 1024 * 1024, // 50 Mo maximum par fichier
+    fileSize: 50 * 1024 * 1024, // 10 Mo maximum par fichier
   },
 });
-
-// Sécurité : On l'exporte aussi par défaut si votre fichier de routes l'importait ainsi
-export default upload;
