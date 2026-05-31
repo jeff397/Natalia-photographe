@@ -7,14 +7,15 @@ import "./galleryManager.css";
 const BACKEND_URL = process.env.VITE_API_URL;
 
 const GalleryManager = ({ galleryId }) => {
+  // Sécurité : Initialisé avec un tableau vide pour éviter le crash au premier rendu
   const [photos, setPhotos] = useState([]);
-  const [files, setFiles] = useState([]); // Tableau pour gérer plusieurs fichiers
-  const [previews, setPreviews] = useState([]); // Tableau pour gérer plusieurs previews
+  const [files, setFiles] = useState([]);
+  const [previews, setPreviews] = useState([]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [alert, setAlert] = useState({ type: "", message: "" });
 
-  // États indispensables pour l'upload de masse
+  // États de progression de l'upload de masse
   const [uploading, setUploading] = useState(false);
   const [currentUploadIndex, setCurrentUploadIndex] = useState(0);
 
@@ -28,9 +29,18 @@ const GalleryManager = ({ galleryId }) => {
       const res = await axios.get(
         `${BACKEND_URL}/private-users/galleries/${galleryId}`,
       );
-      setPhotos(res.data.photos);
+
+      // Double sécurité : On s'adapte automatiquement à la structure de votre réponse API
+      if (res.data && Array.isArray(res.data.photos)) {
+        setPhotos(res.data.photos);
+      } else if (Array.isArray(res.data)) {
+        setPhotos(res.data);
+      } else {
+        setPhotos([]); // Fallback si le format est inconnu
+      }
     } catch (err) {
       console.error("Erreur fetch gallery:", err);
+      setPhotos([]);
     }
   }, [galleryId]);
 
@@ -51,7 +61,7 @@ const GalleryManager = ({ galleryId }) => {
     }
   };
 
-  // Fonction magique d'upload de masse automatique
+  // Upload séquentiel (une par une automatique, sans limite de surcharge)
   const handleUpload = async () => {
     if (files.length === 0) return;
 
@@ -61,16 +71,14 @@ const GalleryManager = ({ galleryId }) => {
       message: `Préparation de l'upload de ${files.length} photos...`,
     });
 
-    // On boucle sur chaque fichier sélectionné
     for (let i = 0; i < files.length; i++) {
-      setCurrentUploadIndex(i + 1); // Met à jour le compteur visuel (ex: 1 / 15)
+      setCurrentUploadIndex(i + 1);
 
       const formData = new FormData();
-      formData.append("image", files[i]); // Utilise votre route SINGLE actuelle
-      formData.append("title", ""); // Pas de titre en upload de masse
+      formData.append("image", files[i]); // Réutilise votre route SINGLE actuelle
+      formData.append("title", "");
 
       try {
-        // On attend que la photo en cours soit bien envoyée avant de passer à la suivante
         await axios.post(
           `${BACKEND_URL}/private-users/${galleryId}/photos`,
           formData,
@@ -85,11 +93,10 @@ const GalleryManager = ({ galleryId }) => {
       }
     }
 
-    // Reset et rafraîchissement global une fois fini
     setUploading(false);
     setFiles([]);
     setPreviews([]);
-    fetchGallery(); // Vos nouvelles photos s'ajoutent à l'écran ici !
+    fetchGallery(); // Rafraîchit la grille avec toutes les nouvelles photos
     setAlert({
       type: "success",
       message: "Toutes les photos ont été uploadées ! 🎉",
@@ -131,7 +138,7 @@ const GalleryManager = ({ galleryId }) => {
 
   return (
     <div className="gallery-manager">
-      {/* Zone de l'alerte */}
+      {/* Messages d'alerte */}
       {alert.message && (
         <div
           className={`alert-message ${alert.type}`}
@@ -151,7 +158,7 @@ const GalleryManager = ({ galleryId }) => {
         <input
           type="file"
           id="fileInput"
-          multiple // Permet la sélection de masse
+          multiple
           onChange={handleFileChange}
           disabled={uploading}
           style={{ display: "none" }}
@@ -189,7 +196,7 @@ const GalleryManager = ({ galleryId }) => {
           </div>
         )}
 
-        {/* Compteur d'envoi dynamique */}
+        {/* Compteur d'envoi de la file d'attente */}
         {uploading && (
           <div
             className="upload-progress"
@@ -209,29 +216,32 @@ const GalleryManager = ({ galleryId }) => {
         </button>
       </div>
 
-      {/* Galerie d'affichage de toutes vos photos existantes */}
+      {/* Galerie d'affichage sécurisée avec vérification de type */}
       <div className="gallery-manager-grid">
-        {photos.map((photo, i) => (
-          <div
-            key={photo._id}
-            className="gallery-manager-card"
-            onClick={() => openLightbox(i)}
-          >
-            <img src={photo.imageUrl} alt={photo.title || `Photo ${i + 1}`} />
-            {photo.title && (
-              <span className="gallery-manager-card-title">{photo.title}</span>
-            )}
+        {Array.isArray(photos) &&
+          photos.map((photo, i) => (
             <div
-              className="delete-icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                confirmDeletePhoto(photo._id);
-              }}
+              key={photo._id || i}
+              className="gallery-manager-card"
+              onClick={() => openLightbox(i)}
             >
-              <FontAwesomeIcon icon={faTrash} />
+              <img src={photo.imageUrl} alt={photo.title || `Photo ${i + 1}`} />
+              {photo.title && (
+                <span className="gallery-manager-card-title">
+                  {photo.title}
+                </span>
+              )}
+              <div
+                className="delete-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  confirmDeletePhoto(photo._id);
+                }}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       {/* Lightbox */}
