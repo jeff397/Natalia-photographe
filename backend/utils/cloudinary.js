@@ -22,10 +22,13 @@ const storage = new CloudinaryStorage({
 
 export { cloudinary };
 
-// Modification ici : Ajout de la limite de taille à 10 Mo
+// Configuration finale : Limite augmentée à 50 Mo pour de bon !
 export const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 50 * 1024 * 1024, // 10 Mo maximum par fichier
+    fileSize: 50 * 1024 * 1024, // 50 Mo maximum par fichier
   },
 });
+
+// Sécurité : On l'exporte aussi par défaut si votre fichier de routes l'importait ainsi
+export default upload;
