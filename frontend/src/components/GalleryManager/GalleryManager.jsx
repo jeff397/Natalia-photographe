@@ -1,3 +1,4 @@
+// src/components/GalleryManager/GalleryManager.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,15 +9,13 @@ const BACKEND_URL = process.env.VITE_API_URL;
 
 const GalleryManager = ({ galleryId }) => {
   const [photos, setPhotos] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [previews, setPreviews] = useState([]);
+  const [file, setFile] = useState(null);
+  const [title, setTitle] = useState("");
+  const [previewUrl, setPreviewUrl] = useState(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // États pour suivre la progression de la file d'attente
-  const [uploading, setUploading] = useState(false);
-  const [currentUploadIndex, setCurrentUploadIndex] = useState(0);
   const [alert, setAlert] = useState({ type: "", message: "" });
+
   const [confirmModal, setConfirmModal] = useState({
     message: "",
     onConfirm: null,
@@ -27,6 +26,7 @@ const GalleryManager = ({ galleryId }) => {
       const res = await axios.get(
         `${BACKEND_URL}/private-users/galleries/${galleryId}`,
       );
+
       setPhotos(res.data.photos);
     } catch (err) {
       console.error("Erreur fetch gallery:", err);
@@ -38,64 +38,72 @@ const GalleryManager = ({ galleryId }) => {
   }, [fetchGallery]);
 
   const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    setFiles(selectedFiles);
-
-    if (selectedFiles.length > 0) {
-      const urls = selectedFiles.map((file) => URL.createObjectURL(file));
-      setPreviews(urls);
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    if (selectedFile) {
+      setPreviewUrl(URL.createObjectURL(selectedFile));
     } else {
-      setPreviews([]);
+      setPreviewUrl(null);
     }
   };
 
-  // La fonction magique qui envoie les photos une par une
   const handleUpload = async () => {
-    if (files.length === 0) return;
+    if (!file) return;
 
-    setUploading(true);
-    setAlert({
-      type: "info",
-      message: `Préparation de l'upload de ${files.length} photos...`,
-    });
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("title", title);
 
-    // Boucle asynchrone sur chaque fichier
-    for (let i = 0; i < files.length; i++) {
-      setCurrentUploadIndex(i + 1); // Met à jour le compteur visuel (ex: 1/25)
+    try {
+      await axios.post(
+        `${BACKEND_URL}/private-users/${galleryId}/photos`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } },
+      );
 
-      const formData = new FormData();
-      formData.append("image", files[i]); // Utilise votre route SINGLE existante
-      formData.append("title", "");
-
-      try {
-        // On attend que la photo actuelle soit chez Cloudinary avant de passer à la suivante
-        await axios.post(
-          `${BACKEND_URL}/private-users/${galleryId}/photos`,
-          formData,
-          { headers: { "Content-Type": "multipart/form-data" } },
-        );
-      } catch (err) {
-        console.error(`Erreur upload photo index ${i}:`, err);
-        // On continue même si une photo échoue, mais on prévient l'utilisateur
-        setAlert({
-          type: "error",
-          message: `Échec de la photo numéro ${i + 1}, passage aux suivantes...`,
-        });
-      }
+      // Reset
+      setFile(null);
+      setTitle("");
+      setPreviewUrl(null);
+      fetchGallery();
+    } catch (err) {
+      console.error("Erreur upload:", err);
+      alert("Erreur lors de l'upload");
     }
+  };
 
-    // Une fois la boucle complètement terminée
-    setUploading(false);
-    setFiles([]);
-    setPreviews([]);
-    fetchGallery(); // On rafraîchit la galerie d'un coup
-    setAlert({
-      type: "success",
-      message: "Toutes les photos ont été traitées avec succès ! 🎉",
+  const confirmDeletePhoto = (photoId) => {
+    setConfirmModal({
+      message: "Voulez-vous vraiment supprimer cette photo ?",
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${BACKEND_URL}/private-users/photos/${photoId}`);
+          setPhotos((prev) => prev.filter((photo) => photo._id !== photoId));
+          setAlert({
+            type: "success",
+            message: "Photo supprimée avec succès !",
+          });
+        } catch (err) {
+          console.error("Erreur suppression:", err);
+          setAlert({
+            type: "error",
+            message: "Erreur lors de la suppression de la photo.",
+          });
+        } finally {
+          setConfirmModal({ message: "", onConfirm: null });
+        }
+      },
     });
   };
 
-  // ... (Conservez vos fonctions de lightbox et delete inchangées)
+  const openLightbox = (index) => {
+    setCurrentIndex(index);
+    setLightboxOpen(true);
+  };
+  const closeLightbox = () => setLightboxOpen(false);
+  const nextPhoto = () => setCurrentIndex((prev) => (prev + 1) % photos.length);
+  const prevPhoto = () =>
+    setCurrentIndex((prev) => (prev - 1 + photos.length) % photos.length);
 
   return (
     <div className="gallery-manager">
@@ -104,72 +112,113 @@ const GalleryManager = ({ galleryId }) => {
         <input
           type="file"
           id="fileInput"
-          multiple // Permet de sélectionner 20, 30, 50 photos d'un coup
           onChange={handleFileChange}
-          disabled={uploading}
           style={{ display: "none" }}
         />
         <label htmlFor="fileInput" className="custom-file-button">
-          {files.length > 0
-            ? `${files.length} photos sélectionnées`
-            : "Choisir des fichiers"}
+          {file ? file.name : "Choisir un fichier"}
         </label>
 
-        {/* Affichage des miniatures sélectionnées */}
-        {previews.length > 0 && !uploading && (
-          <div
-            className="previews-grid"
-            style={{
-              display: "flex",
-              gap: "5px",
-              flexWrap: "wrap",
-              margin: "10px 0",
-            }}
-          >
-            {previews.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt="Preview"
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  objectFit: "cover",
-                  borderRadius: "4px",
-                }}
-              />
-            ))}
+        {previewUrl && (
+          <div className="gallery-manager-preview">
+            <img src={previewUrl} alt="Preview" />
           </div>
         )}
 
-        {/* Message d'attente pendant l'upload en masse */}
-        {uploading && (
-          <div
-            className="upload-progress"
-            style={{ margin: "15px 0", color: "#3498db", fontWeight: "bold" }}
-          >
-            🚀 Envoi en cours : {currentUploadIndex} / {files.length} photos...
-          </div>
-        )}
-
-        <button
-          onClick={handleUpload}
-          disabled={files.length === 0 || uploading}
-          style={{
-            backgroundColor: uploading ? "#bdc3c7" : "#2ecc71",
-            color: "white",
-            padding: "10px 20px",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          {uploading
-            ? "Upload en cours..."
-            : `Lancer l'upload (${files.length} photos)`}
-        </button>
+        <input
+          type="text"
+          placeholder="Titre (facultatif)"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <button onClick={handleUpload}>Uploader</button>
       </div>
 
-      {/* ... Votre grille de photos existante */}
+      {/* Galerie */}
+      <div className="gallery-manager-grid">
+        {photos.map((photo, i) => (
+          <div
+            key={photo._id}
+            className="gallery-manager-card"
+            onClick={() => openLightbox(i)}
+          >
+            <img src={photo.imageUrl} alt={photo.title || `Photo ${i + 1}`} />
+            {photo.title && (
+              <span className="gallery-manager-card-title">{photo.title}</span>
+            )}
+            <div
+              className="delete-icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                confirmDeletePhoto(photo._id); // <-- plus de window.confirm ici
+              }}
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Lightbox */}
+      {lightboxOpen && photos[currentIndex] && (
+        <div className="gallery-manager-lightbox" onClick={closeLightbox}>
+          <button
+            className="gallery-manager-lightbox-prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              prevPhoto();
+            }}
+          >
+            &#10094;
+          </button>
+          <img
+            className="gallery-manager-lightbox-image"
+            src={photos[currentIndex].imageUrl}
+            alt={photos[currentIndex].title || `Photo ${currentIndex + 1}`}
+          />
+          <button
+            className="gallery-manager-lightbox-next"
+            onClick={(e) => {
+              e.stopPropagation();
+              nextPhoto();
+            }}
+          >
+            &#10095;
+          </button>
+          <button
+            className="gallery-manager-lightbox-close"
+            onClick={closeLightbox}
+          >
+            &times;
+          </button>
+        </div>
+      )}
+      <ConfirmModal
+        message={confirmModal.message}
+        onConfirm={confirmModal.onConfirm}
+        onCancel={() => setConfirmModal({ message: "", onConfirm: null })}
+      />
+    </div>
+  );
+};
+
+const ConfirmModal = ({ message, onConfirm, onCancel }) => {
+  if (!message) return null;
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-box">
+        <h3>Confirmation</h3>
+        <p>{message}</p>
+        <div className="modal-actions">
+          <button className="confirm-btn" onClick={onConfirm}>
+            Oui, confirmer
+          </button>
+          <button className="cancel-btn" onClick={onCancel}>
+            Annuler
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
