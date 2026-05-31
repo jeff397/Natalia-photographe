@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./galleryManager.css";
 
-const BACKEND_URL = process.env.VITE_API_URL;
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 const GalleryManager = ({ galleryId }) => {
   // Sécurité : Initialisé avec un tableau vide pour éviter le crash au premier rendu
