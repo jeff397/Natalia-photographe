@@ -13,12 +13,13 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: "myportfolio",
-    allowed_formats: ["jpg", "png", "jpeg", "webp"],
-    resource_type: "auto", // 👈 Autorise Cloudinary à recevoir des fichiers lourds
-    chunk_size: 20000000, // 👈 Découpe l'envoi en morceaux (chunks) pour contourner la limite de 10 M
-    transformation: [{ width: 1200, height: 800, crop: "limit" }],
+  params: async (req, file) => {
+    return {
+      folder: "myportfolio",
+      format: "jpeg", // Force un format de sortie stable pour alléger le fichier
+      resource_type: "auto",
+      transformation: [{ width: 1200, height: 800, crop: "limit" }],
+    };
   },
 });
 
